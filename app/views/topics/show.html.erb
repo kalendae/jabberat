@@ -1,0 +1,18 @@
+<p>
+  <b>Content:</b>
+  <%=h @topic.content %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @topic.user_id %>
+</p>
+
+<p>
+  <b>Image url:</b>
+  <%=h @topic.image_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Back', topics_path %>
