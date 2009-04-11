@@ -1,0 +1,86 @@
+body {
+  font-family: arial, helvetica, sans-serif;
+  background-color: #FFFFFF;
+  margin: 0px;
+  padding: 0px;
+}
+
+div#above_header_space {
+  width: 100%;
+  background-color: #D9E7FF;
+  height: 4px;
+}
+div#below_header_space {
+  width: 100%;
+  background-color: #D9E7FF;
+  height: 4px;
+  border-bottom: 1px solid #C9D7F1;
+}
+div#header {
+  width: 100%;
+  font-size: 13px;
+  line-height: 13px;
+  height: 18px;
+  background-color: #D9E7FF;
+  vertical-align: middle;
+}
+div#top_menu {
+  float: left;
+  margin-left: 15px;
+  margin-top: 3px;
+}
+div#header a {
+}
+nobr {
+  margin-right: 15px;
+}
+
+
+div#logo {
+  font-size: 60px;
+  margin: 5px 0px 0px 28px;
+  color: #aaa;
+  font-weight: bold;
+}
+div#pullout {
+  float: left;
+  height: 800px;
+  width: 350px;
+}
+div#topic_space {
+  height: 750px;
+  width: 350px;
+  border: solid 1px #C9D7F1;
+  background-color: #E9E7FF;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+div#main_space {
+  text-align: center;
+}
+
+.medium_heading {
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 22.15px;
+  color: #004060;
+  background-color: #C9D7F1;
+  padding: 5px 0px 5px 30px;
+}
+
+.notice {
+  font-size: 12px;
+  color: #aa8822;
+}
+.error {
+  font-size: 12px;
+  color: #FF7733;
+}
+.errorExplanation {
+  font-size: 12px;
+  color: #FF7733;
+}
+

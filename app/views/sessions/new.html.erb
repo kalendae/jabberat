@@ -1,0 +1,68 @@
+<style type="text/css">
+  div#page {
+          margin: 20px 80px;
+  }
+  div#loginform {
+    border: solid 1px #eee;
+    width: 250px;
+    padding-bottom: 10px;
+    float: left;
+  }
+  input[type=text], input[type=password] {
+    border: solid 1px #999;
+    margin-left: 22px;
+    margin-top: 5px;
+  }
+  input[type=submit] {
+    border: solid 1px #999;
+    margin-left: 160px;
+    margin-top: 15px;
+  }
+  label {
+    font-size: 12px;
+    margin-left: 20px;
+  }
+  div#side_image {
+    float:left;
+    margin-left: 20px;
+    filter:alpha(opacity=5);-moz-opacity:.05;opacity:.05;
+  }
+</style>
+
+<div id="page">
+
+  <h4>Login or <%= link_to "Signup", signup_path %> if you haven't.</h4>
+
+  <% if flash[:notice] -%>
+      <p class="notice"><%= flash[:notice] %></p>
+  <% end -%>
+  <% if flash[:error] -%>
+      <p class="error"><%= flash[:error] %></p>
+  <% end -%>
+
+  <div id="loginform">
+
+
+    <% form_tag session_path do -%>
+    <p><%= label_tag 'login', "Username" %><br />
+    <%= text_field_tag 'login', @login %></p>
+
+    <p><%= label_tag 'password' %><br/>
+    <%= password_field_tag 'password', nil %></p>
+
+    <p><%= label_tag 'remember_me', 'Remember me' %>
+    <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+
+    <p><%= submit_tag 'Log in' %></p>
+    <% end -%>
+
+  </div>
+  <div id="side_image">
+      <img src="/images/fuzzy_crowd.jpg"/>
+  </div>
+
+  <script type="text/javascript">
+      $('login').focus();
+  </script>
+
+</div>

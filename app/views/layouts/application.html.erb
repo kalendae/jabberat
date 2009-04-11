@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" >
+<head>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag :defaults %>
+  <title><% if @title.blank? %>jabberAt - jabber At ideas, people, and other jabber<% else %><%= @title %><% end %></title>
+</head>
+<body>
+  <div id="above_header_space"> </div>
+  <div id="header" align="right">
+    <div id="top_menu">
+        <%= link_to "Home", root_path %> | <%= link_to "People", users_path %>
+    </div>
+    <nobr>
+        <% if current_user %>
+          Hello <%= image_tag(gravatar_url_for(current_user), :width => 16, :height => 16)%> <%= link_to current_user.login.titleize, current_user %> |
+          <%= link_to "Logout", logout_path  %>
+        <% else %>
+          <%= link_to "Login", login_path  %> | <%= link_to "Signup", signup_path  %>   
+        <% end %>
+    </nobr>
+  </div>
+  <div id="below_header_space"> </div>
+  <%= yield %>
+</body>
+</html>

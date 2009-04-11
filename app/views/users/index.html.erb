@@ -1,0 +1,83 @@
+<style type="text/css">
+  div#page {
+          margin: 20px;
+          color: #888;
+  }
+  div#users_panel {
+    width: 95%;
+    padding: 10px 20px;
+  }
+  input[type=text], input[type=password] {
+    border: solid 1px #999;
+    margin-left: 22px;
+    margin-top: 5px;
+  }
+  input[type=submit] {
+    border: solid 1px #999;
+    margin-left: 160px;
+    margin-top: 15px;
+  }
+  label {
+    font-size: 12px;
+    margin-left: 20px;
+  }
+  .profile_pic {
+    padding: 2px;
+    border: solid 1px #999;
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
+  }
+  .user_tile {
+    float: left;
+    width: 110px;
+    height: 180px;
+    margin: 10px;
+    border: solid 1px #999;
+    background-color: #eee;
+    text-align: center;
+  }
+  .user_login {
+  }
+  .user_info {
+    font-size: 10px;
+    height: 30px;
+  }
+  .button_link {
+    border: solid 1px #3355BB;
+    background-color: #88aafe;
+    color: white;
+    padding: 2px 5px;
+    font-size: 11px;
+  }
+</style>
+
+<div id="page">
+
+  <%= error_messages_for :user %>
+  <% if flash[:notice] -%>
+      <p class="notice"><%= flash[:notice] %></p>
+  <% end -%>
+  <% if flash[:error] -%>
+      <p class="error"><%= flash[:error] %></p>
+  <% end -%>
+
+
+  <div id="users_panel">
+      <% @users.each do |user| %>
+        <div class="user_tile">
+          <a href="<%= url_for user %>">
+            <%= image_tag(gravatar_url_for(user), :width => 80, :height => 80, :class => "profile_pic")%>
+            <div class="user_login"><%= user.login %></div>
+          </a>
+          <div class="user_info">
+              Joined: <%= time_ago_in_words(user.created_at) %> ago.
+          </div>
+          <div class="follow_link">
+              <%= link_to "Follow", "#", :class => "button_link" %>
+          </div>
+        </div>
+      <% end %>
+  </div>
+
+</div>

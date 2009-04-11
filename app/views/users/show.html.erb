@@ -1,0 +1,93 @@
+<style type="text/css">
+  div#page {
+          margin: 20px;
+          color: #888;
+  }
+  table#profile {
+    width: 90%;
+  }
+  input[type=text], input[type=password] {
+    border: solid 1px #999;
+    margin-top: 5px;
+  }
+  input[type=submit] {
+    border: solid 1px #999;
+    margin-top: 5px;
+  }
+  label {
+    font-size: 12px;
+    margin-left: 20px;
+  }
+  div#side_image {
+    float:left;
+    margin-left: 20px;
+    filter:alpha(opacity=5);-moz-opacity:.05;opacity:.05;
+  }
+  .profile_pic {
+    border: solid 1px #999;
+    width: 80px;
+    height: 80px;
+    margin: 0px 10px;
+  }
+  div#gravatar_link {
+    font-size: 9px;
+    margin: 0px 10px 20px 10px;
+  }
+  div#login_name {
+    margin: 10px 10px 5px 10px;
+  }
+  div#profile_summary {
+    color: #ccc;
+    margin: 40px 0px 0px 40px;
+  }
+  .activity {
+    margin: 0px 0px 0px 20px;
+  }
+  div#profile_box {
+    border: solid 1px #eee;
+    width: 260px;
+  }
+</style>
+
+<div id="page">
+
+  <%= error_messages_for :user %>
+  <% if flash[:notice] -%>
+      <p class="notice"><%= flash[:notice] %></p>
+  <% end -%>
+  <% if flash[:error] -%>
+      <p class="error"><%= flash[:error] %></p>
+  <% end -%>
+
+
+  <table id="profile">
+      <tr><td>
+        <div id="profile_box">
+          <div id="login_name"><%= @user.login %></div>
+          <%= image_tag(gravatar_url_for(@user), :width => 80, :height => 80, :class => "profile_pic")%>
+          <% if @user == current_user %>
+            <div id="gravatar_link">
+              <%= link_to "Change/Setup", "http://en.gravatar.com/" %> Gravatar<br/>
+              or enter image url for your avatar (we like squares):
+              <div id="avatar_link">
+                <form action="update_avatar_url/<%= current_user.id %>">
+                    <input type="text" id="user_avatar_url" name="user[avatar_url]"/>
+                    <input type="submit"/>
+                </form>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </td><td>
+        <div id="profile_summary">
+            Summary Statistics
+        </div>
+      </td></tr>
+  </table>
+
+  <div id="activities">
+      <h4>Recent Jabbers:</h4>
+      <div class="activity"></div>
+  </div>
+
+</div>

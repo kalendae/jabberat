@@ -1,0 +1,66 @@
+<style type="text/css">
+  div#page {
+          margin: 20px 80px;
+  }
+  div#signup {
+    border: solid 1px #eee;
+    width: 250px;
+    padding-bottom: 10px;
+    float: left;
+  }
+  input[type=text], input[type=password] {
+    border: solid 1px #999;
+    margin-left: 22px;
+    margin-top: 5px;
+  }
+  input[type=submit] {
+    border: solid 1px #999;
+    margin-left: 160px;
+    margin-top: 15px;
+  }
+  label {
+    font-size: 12px;
+    margin-left: 20px;
+  }
+  div#side_image {
+    float:left;
+    margin-left: 20px;
+    filter:alpha(opacity=5);-moz-opacity:.05;opacity:.05;
+  }
+</style>
+
+<div id="page">
+
+  <h4>Signup to share whats on your mind or <%= link_to "Login", login_path %> if you've already signed up.</h4>
+  <%= error_messages_for :user %>
+
+  <div id="signup">
+
+      <% @user.password = @user.password_confirmation = nil %>
+
+      <% form_for :user, :url => users_path do |f| -%>
+      <p><%= label_tag 'login', "Username" %><br/>
+      <%= f.text_field :login %></p>
+
+      <p><%= label_tag 'email' %><br/>
+      <%= f.text_field :email %></p>
+
+      <p><%= label_tag 'password' %><br/>
+      <%= f.password_field :password %></p>
+
+      <p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+      <%= f.password_field :password_confirmation %></p>
+
+      <p><%= submit_tag 'Sign up' %></p>
+      <% end -%>
+
+  </div>
+  <div id="side_image">
+      <img src="/images/fuzzy_crowd.jpg"/>
+  </div>
+
+    <script type="text/javascript">
+        $('user_login').focus();
+    </script>
+
+</div>

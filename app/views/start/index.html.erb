@@ -1,0 +1,21 @@
+<div id="pullout">
+  <div id="logo">Jabber@t</div>
+  <div id="topic_space">
+      <div class="medium_heading">
+          Hot Topics
+      </div>
+  </div>
+</div>
+
+<div id="main_space">
+
+    <% if flash[:notice] -%>
+        <p class="notice"><%= flash[:notice] %></p>
+    <% end -%>
+    <% if flash[:error] -%>
+        <p class="error"><%= flash[:error] %></p>
+    <% end -%>
+
+
+
+</div>
