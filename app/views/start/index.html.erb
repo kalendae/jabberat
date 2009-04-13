@@ -1,3 +1,32 @@
+<style type="text/css">
+  textarea#topic_content {
+    border: solid 1px #999;
+    height: 40px;
+    width: 400px;
+  }
+  input#t {
+    border: solid 1px #999;
+    width: 400px;
+    margin-left: 8px;
+  }
+  input[type=submit] {
+    border: solid 1px #999;
+    width: 58px;
+    margin-left: 8px;
+  }
+  label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+  }
+  div#main_deal {
+    margin-top: 80px;        
+  }
+  div#creation_prompt {
+    margin-top: 10px;        
+  }
+</style>
+
 <div id="pullout">
   <div id="logo">Jabber@t</div>
   <div id="topic_space">
@@ -16,6 +45,17 @@
         <p class="error"><%= flash[:error] %></p>
     <% end -%>
 
-
+    <% form_tag '', :method => 'get' do -%>
+        <div id="main_deal">
+            <label>Jabber About:</label>
+            <%= text_field_tag :t, @content %>
+            <%= submit_tag "Go", :name => 'c' %>
+        </div>
+    <% end %>
+    <% unless @content.blank? %>
+      <div id="creation_prompt">
+          
+      </div>
+    <% end %>
 
 </div>

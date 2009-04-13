@@ -1,4 +1,9 @@
 class TopicsController < ApplicationController
+
+  include AuthenticatedSystem
+
+  before_filter :login_required, :only => [:create]
+  
   # GET /topics
   # GET /topics.xml
   def index
@@ -41,7 +46,7 @@ class TopicsController < ApplicationController
   # POST /topics.xml
   def create
     @topic = Topic.new(params[:topic])
-
+    
     respond_to do |format|
       if @topic.save
         flash[:notice] = 'Topic was successfully created.'
