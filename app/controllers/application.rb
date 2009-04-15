@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
 
+  include AuthenticatedSystem
+  
   def super_user?
     current_user and (current_user.login == 'tao' or current_user.login == 'kalendae' or current_user.login == 'milener')
   end

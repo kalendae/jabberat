@@ -61,11 +61,13 @@
   div#exist_prompt {
     margin: 10px;
   }
+  div#topic_area {
+          margin-top: 50px;
+          margin-left: auto;
+          margin-right: auto;
+          width: 90%;
+          }
   div#the_topic {
-      margin-top: 20px;
-      margin-left: auto;
-      margin-right: auto;
-      width: 80%;
       border-top: solid 8px #c0c0e0;
       padding: 5px;
       background-color: #f4f4ff;
@@ -73,7 +75,17 @@
       min-height:80px; 
       height:auto;
   }
-  .owner_pic {
+  .comment {
+          border-top: solid 6px #c0c0e0;
+          padding: 5px;
+          background-color: #f4f4ff;
+          text-align: left;
+          min-height:40px; 
+          height:auto;
+          margin-top: 10px;
+          width: 60%;
+          }
+  .owner_pic, .comment_owner_pic {
       border: solid 1px #fff;
       float: left;
   }
@@ -83,9 +95,53 @@
       font-size: 18px;
       color: #000;
   }
+  .comment_content {
+          margin-left: 50px;
+          font-family: verdana, sans-serif;
+          font-size: 12px;
+          color: #000;
+          }
   .topic_time {
-      margin-left: 70px;
+          font-size: 13px;
+          color: #666;
+          margin-left: 70px;
   }
+  .comment_time {
+          font-size: 11px;
+          color: #bbb;
+          margin-left: 50px;
+          }
+  .topic_owner_name {
+          font-size: 16px;
+          color: #aaa;
+          margin-left: 70px;
+          }
+  .comment_text_area {
+          width: 100%;
+          height: 70px;
+          border: solid 1px #99c;
+          }
+  div#topic_reply {
+          width: 60%;
+          text-align: left;
+          margin-top: 10px;
+          margin-left: 2%;
+          }
+  .reply_to {
+          font-size: 13px;
+          color: #aaa;
+          }
+  .comment_submit {
+          color: #fff;
+          border: solid 1px #449 !important;
+          background-color: #99E;
+          margin-left: 0px !important;
+          font-size: 11px;
+          }
+  .comment_owner_link {
+          text-decoration: none;
+          color: #6090aa;
+          }
 </style>
 
 <div id="pullout">
@@ -154,17 +210,40 @@
     <% end %>
     
     <% if @content.blank? and !@topic.id.blank? %>
-      <div id="the_topic">
-          <%= link_to(image_tag(gravatar_url_for(@topic.user), :width => 60, :height => 60, :class => 'owner_pic'),@topic.user, :class => 'topic_owner') %>
-          <div class="topic_content">
-            <%= @topic.content %>
+      <div id="topic_area">
+        <div id="the_topic">
+            <%= link_to(image_tag(gravatar_url_for(@topic.user), :width => 60, :height => 60, :class => 'owner_pic'),@topic.user, :class => 'topic_owner') %>
+            <div class="topic_owner_name">
+                <%= link_to "#{@topic.user.login}:", @topic.user %>
+            </div>
+            <div class="topic_content">
+              <%= @topic.content %>
+            </div>
+            <div class="topic_time">
+                <%= time_ago_in_words(@topic.updated_at) %> ago
+            </div>
+
+        </div>
+        <div id="topic_reply">
+            <div class="reply_to">
+                Your reply to <%= image_tag(gravatar_url_for(@topic.user), :width => 15, :height => 15) %> <%= @topic.user.login %>
+            </div>
+            <% form_for([@topic,@comment]) do |f| %>
+              <%= f.text_area :content, :class => "comment_text_area" %>
+              <%= f.submit "Submit", :class => "comment_submit" %>
+            <% end %>
+        </div>
+        <% @comments.each do |comment| %>
+          <div class="comment" style="margin-left:2%;">
+              <%= link_to(image_tag(gravatar_url_for(comment.user), :width => 35, :height => 35, :class => 'comment_owner_pic'),comment.user, :class => 'comment_owner') %>
+              <div class="comment_content">
+                <%= link_to "#{comment.user.login}:", comment.user, :class => "comment_owner_link" %> <%= comment.content %>
+              </div>
+              <div class="comment_time">
+                  <%= time_ago_in_words(comment.created_at) %> ago
+              </div>
           </div>
-          <div class="topic_time">
-              <%= time_ago_in_words(@topic.updated_at) %> ago
-          </div>
+        <% end %>
       </div>
-
-
-
     <% end %>
 </div>

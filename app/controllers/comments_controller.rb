@@ -1,6 +1,11 @@
 class CommentsController < ApplicationController
 
-  include AuthenticatedSystem
+  before_filter :get_topic
+  before_filter :login_required, :only => [:create]
+
+  def get_topic
+    @topic = Topic.find params[:topic_id]
+  end
   
   # GET /comments
   # GET /comments.xml
@@ -44,11 +49,13 @@ class CommentsController < ApplicationController
   # POST /comments.xml
   def create
     @comment = Comment.new(params[:comment])
+    @comment.topic = @topic
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
         flash[:notice] = 'Comment was successfully created.'
-        format.html { redirect_to(@comment) }
+        format.html { redirect_to(:controller => :start, :action => :index, :id => @topic) }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else
         format.html { render :action => "new" }
