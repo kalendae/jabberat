@@ -81,6 +81,9 @@ module AuthenticatedSystem
     #
     # We can return to this location by calling #redirect_back_or_default.
     def store_location
+      if request.method == :post
+        session[:return_post_params] = params
+      end
       session[:return_to] = request.request_uri
     end
 
@@ -89,7 +92,13 @@ module AuthenticatedSystem
     #   after_filter :store_location, :only => [:index, :new, :show, :edit]
     # for any controller you want to be bounce-backable.
     def redirect_back_or_default(default)
-      redirect_to(session[:return_to] || default)
+      return_params = session[:return_post_params]
+      session[:return_post_params] = nil
+      if return_params
+        redirect_post(return_params)
+      else
+        redirect_to(session[:return_to] || default)
+      end
       session[:return_to] = nil
     end
 

@@ -25,6 +25,67 @@
   div#creation_prompt {
     margin-top: 10px;        
   }
+  .topic_in_list {
+    margin: 10px 10px 0px 10px;
+    border: solid 1px #fff;
+    padding: 5px;
+    background-color: #f4f4f4;
+  }
+  .topic_owner_in_list {
+    float: left;
+    border: none;
+  }
+  .owner_pic_in_list {
+    border: none;        
+  }
+  .topic_content_in_list {
+    margin-left: 35px;
+    font-size: 12px;
+    font-family: arial, helvetica, sans-serif;
+  }
+  .topic_content_link_in_list {
+    text-decoration: none;
+    color: #507090; 
+  }
+  .topic_time_in_list {
+    font-size: 11px;
+    color: #aaa;
+    margin-left: 35px;
+  }
+  div#existing_suggestions {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+  div#exist_prompt {
+    margin: 10px;
+  }
+  div#the_topic {
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+      border-top: solid 8px #c0c0e0;
+      padding: 5px;
+      background-color: #f4f4ff;
+      text-align: left;
+      min-height:80px; 
+      height:auto;
+  }
+  .owner_pic {
+      border: solid 1px #fff;
+      float: left;
+  }
+  .topic_content {
+      margin-left: 70px;
+      font-family: arial, helvetica, sans-serif;
+      font-size: 18px;
+      color: #000;
+  }
+  .topic_time {
+      margin-left: 70px;
+  }
 </style>
 
 <div id="pullout">
@@ -33,6 +94,19 @@
       <div class="medium_heading">
           Hot Topics
       </div>
+      <% @hot_topics.each do |topic| %>
+          <div class="topic_in_list">
+              <%= link_to(image_tag(gravatar_url_for(topic.user), :width => 30, :height => 30, :class => 'owner_pic_in_list'),topic.user, :class => 'topic_owner_in_list') %>
+              <div class="topic_content_in_list">
+                <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
+                      <%= topic.content %>
+                </a>
+              </div>
+              <div class="topic_time_in_list">
+                  <%= time_ago_in_words(topic.updated_at) %> ago
+              </div>
+          </div>
+      <% end %>
   </div>
 </div>
 
@@ -53,9 +127,44 @@
         </div>
     <% end %>
     <% unless @content.blank? %>
+      <% unless @topics.blank? %>
+        <div id="exist_prompt">Does your topic already exist?</div>
+        <div id="existing_suggestions">
+            <% @topics.each do |topic| %>
+                <div class="topic_in_list">
+                    <%= link_to(image_tag(gravatar_url_for(topic.user), :width => 30, :height => 30, :class => 'owner_pic_in_list'),topic.user, :class => 'topic_owner_in_list') %>
+                    <div class="topic_content_in_list">
+                      <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
+                            <%= topic.content %>
+                      </a>
+                    </div>
+                    <div class="topic_time_in_list">
+                        <%= time_ago_in_words(topic.updated_at) %> ago
+                    </div>
+                </div>
+            <% end %>
+        </div>
+      <% end %>
       <div id="creation_prompt">
-          
+          <% form_for(@topic) do |f| %>
+              <%= f.hidden_field :content, :value => @content %>
+              <%= f.submit "Create a new Topic", :style => "width:138px;" %>
+          <% end %>
       </div>
     <% end %>
+    
+    <% if @content.blank? and !@topic.id.blank? %>
+      <div id="the_topic">
+          <%= link_to(image_tag(gravatar_url_for(@topic.user), :width => 60, :height => 60, :class => 'owner_pic'),@topic.user, :class => 'topic_owner') %>
+          <div class="topic_content">
+            <%= @topic.content %>
+          </div>
+          <div class="topic_time">
+              <%= time_ago_in_words(@topic.updated_at) %> ago
+          </div>
+      </div>
 
+
+
+    <% end %>
 </div>

@@ -12,4 +12,24 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
+
+  def super_user?
+    current_user and (current_user.login == 'tao' or current_user.login == 'kalendae' or current_user.login == 'milener')
+  end
+
+  def redirect_post(redirect_post_params)
+      controller_name = redirect_post_params[:controller]
+      controller = "#{controller_name.camelize}Controller".constantize
+      # Throw out existing params and merge the stored ones
+      request.parameters.reject! { true }
+      request.parameters.merge!(redirect_post_params)
+      controller.process(request, response)
+      if response.redirected_to
+        @performed_redirect = true
+      else
+        @performed_render = true
+      end
+  end
+
+  
 end

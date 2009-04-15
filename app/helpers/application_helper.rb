@@ -2,7 +2,7 @@
 module ApplicationHelper
 
   def super_user?
-    current_user and (current_user.login == 'tao' or current_user.login == 'kalendae' or current_user.login == 'scott')
+    current_user and (current_user.login == 'tao' or current_user.login == 'kalendae' or current_user.login == 'milener')
   end
 
   def gravatar_url_for(user, options = {})
