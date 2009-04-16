@@ -84,6 +84,7 @@
           height:auto;
           margin-top: 10px;
           width: 60%;
+          overflow: hidden;
           }
   .owner_pic, .comment_owner_pic {
       border: solid 1px #fff;
@@ -195,8 +196,8 @@
 
     <% form_tag '', :method => 'get' do -%>
         <div id="main_deal">
-            <label>Jabber About:</label>
-            <%= text_field_tag :t, @content %>
+            <label>Enter jabber topic:</label>
+            <%= text_field_tag :t, @content, :maxlength => 500 %>
             <%= submit_tag "Go", :name => 'c' %>
         </div>
     <% end %>
@@ -218,10 +219,12 @@
                 </div>
             <% end %>
         </div>
+      <% else %>
+        <div id="exist_prompt">No related topics found.</div>
       <% end %>
       <div id="creation_prompt">
           <% form_for(@topic) do |f| %>
-              <%= f.hidden_field :content, :value => @content %>
+              <%= f.text_area :content, :value => @content, :onkeypress => "return imposeMaxLength(this, 500);" %><br/>
               <%= f.submit "Create a new Topic", :style => "width:138px;" %>
           <% end %>
       </div>
@@ -241,7 +244,7 @@
                            "    <input type='hidden' name='authenticity_token' value='" + "<%= form_authenticity_token() %>" + "'/>" +
                            "    <input type='hidden' name='comment[parent_id]' value='" + comment_id + "'/>" +
                            "    <input type='hidden' name='comment[level]' value='" + (level + 1) + "'/>" +
-                           "    <textarea class='comment_text_area' rows='20' cols='40' name='comment[content]'></textarea>" +
+                           "    <textarea class='comment_text_area' rows='20' cols='40' name='comment[content]' onkeypress='return imposeMaxLength(this, 500);'></textarea>" +
                            "    <input class='comment_submit' type='submit' value='Submit' name='commit'/> | <a href='#' onclick='reply_to("+ comment_id + ",null,null);return false;' class='comment_cancel'>Cancel</a>" +
                            "  </form>" +
                            "</div>";
@@ -269,7 +272,7 @@
                 Your reply to <%= image_tag(gravatar_url_for(@topic.user), :width => 15, :height => 15) %> <%= @topic.user.login %>
             </div>
             <% form_for([@topic,@comment]) do |f| %>
-              <%= f.text_area :content, :class => "comment_text_area" %>
+              <%= f.text_area :content, :class => "comment_text_area", :onkeypress => "return imposeMaxLength(this, 500);" %>
               <%= f.submit "Submit", :class => "comment_submit" %>
             <% end %>
         </div>

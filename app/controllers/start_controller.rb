@@ -10,7 +10,7 @@ class StartController < ApplicationController
       @query = params[:t].split(' ').collect{|term| term + '~'}.join(' OR ')
       @topics = Topic.find_with_ferret(@query, :limit => 5)
       @content = params[:t]
-      if @topics.blank?
+      if @topics.blank? and @content.length > 15
         redirect_post(:controller => 'topics', :action => 'create', :topic => {:content => @content})
       end
     elsif not params[:id].blank?
