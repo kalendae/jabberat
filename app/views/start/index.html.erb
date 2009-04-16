@@ -76,7 +76,6 @@
       height:auto;
   }
   .comment {
-          border-top: solid 6px #c0c0e0;
           padding: 5px;
           background-color: #f4f4ff;
           text-align: left;
@@ -85,6 +84,9 @@
           margin-top: 10px;
           width: 60%;
           overflow: hidden;
+          }
+  .root {
+          border-top: solid 6px #c0c0e0;
           }
   .owner_pic, .comment_owner_pic {
       border: solid 1px #fff;
@@ -277,7 +279,7 @@
             <% end %>
         </div>
         <% @comments.each do |comment| %>
-          <div class="comment" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;" id="comment_<%= comment.id %>">
+          <div class="comment <% if comment.level.to_i == 0 %>root<% end %>" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;" id="comment_<%= comment.id %>">
               <%= link_to(image_tag(gravatar_url_for(comment.user), :width => 35, :height => 35, :class => 'comment_owner_pic'),comment.user, :class => 'comment_owner') %>
               <div class="comment_actions">
                   <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user), :width => 15, :height => 15)} #{comment.user.login}')", :class => "comment_reply_link" %>
