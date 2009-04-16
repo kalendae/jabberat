@@ -97,6 +97,7 @@
   }
   .comment_content {
           margin-left: 50px;
+          margin-right: 50px;
           font-family: verdana, sans-serif;
           font-size: 12px;
           color: #000;
@@ -127,6 +128,11 @@
           margin-top: 10px;
           margin-left: 2%;
           }
+  .comment_reply {
+          width: 60%;
+          text-align: left;
+          margin-top: 10px;
+          }
   .reply_to {
           font-size: 13px;
           color: #aaa;
@@ -141,6 +147,18 @@
   .comment_owner_link {
           text-decoration: none;
           color: #6090aa;
+          }
+  .comment_actions {
+          float: right;
+          font-size: 12px;
+          font-family: verdana, sans-serif;
+          }
+  .comment_reply_link {
+          text-decoration: none;
+          color: #6090AA;
+          }
+  .comment_cancel {
+          font-size: 12px;
           }
 </style>
 
@@ -210,6 +228,29 @@
     <% end %>
     
     <% if @content.blank? and !@topic.id.blank? %>
+      <script type="text/javascript">
+          function reply_to(comment_id, level, prompt) {
+            parent_div = $('comment_' + comment_id);
+            child_div = $('comment_reply_' + comment_id);
+            if (child_div) {
+              child_div.parentNode.removeChild(child_div);              
+            } else {
+              child_html = "<div id='comment_reply_" + comment_id + "' class='comment_reply' style='margin-left:"+ (2 * (level + 2)) + "%;'>" +
+                           "  <div class='reply_to'>" + prompt + "</div>" +
+                           "  <form class='new_comment' method='post' action='/topics/" + "<%= @topic.id %>" + "/comments'>" +
+                           "    <input type='hidden' name='authenticity_token' value='" + "<%= form_authenticity_token() %>" + "'/>" +
+                           "    <input type='hidden' name='comment[parent_id]' value='" + comment_id + "'/>" +
+                           "    <input type='hidden' name='comment[level]' value='" + (level + 1) + "'/>" +
+                           "    <textarea class='comment_text_area' rows='20' cols='40' name='comment[content]'></textarea>" +
+                           "    <input class='comment_submit' type='submit' value='Submit' name='commit'/> | <a href='#' onclick='reply_to("+ comment_id + ",null,null);return false;' class='comment_cancel'>Cancel</a>" +
+                           "  </form>" +
+                           "</div>";
+              child_div = document.createElement("div");
+              child_div.innerHTML = child_html;
+              parent_div.parentNode.insertBefore(child_div, parent_div.nextSibling);
+            }
+          }
+      </script>
       <div id="topic_area">
         <div id="the_topic">
             <%= link_to(image_tag(gravatar_url_for(@topic.user), :width => 60, :height => 60, :class => 'owner_pic'),@topic.user, :class => 'topic_owner') %>
@@ -222,7 +263,6 @@
             <div class="topic_time">
                 <%= time_ago_in_words(@topic.updated_at) %> ago
             </div>
-
         </div>
         <div id="topic_reply">
             <div class="reply_to">
@@ -234,8 +274,11 @@
             <% end %>
         </div>
         <% @comments.each do |comment| %>
-          <div class="comment" style="margin-left:2%;">
+          <div class="comment" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;" id="comment_<%= comment.id %>">
               <%= link_to(image_tag(gravatar_url_for(comment.user), :width => 35, :height => 35, :class => 'comment_owner_pic'),comment.user, :class => 'comment_owner') %>
+              <div class="comment_actions">
+                  <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user), :width => 15, :height => 15)} #{comment.user.login}')", :class => "comment_reply_link" %>
+              </div>
               <div class="comment_content">
                 <%= link_to "#{comment.user.login}:", comment.user, :class => "comment_owner_link" %> <%= comment.content %>
               </div>
@@ -244,6 +287,7 @@
               </div>
           </div>
         <% end %>
+        <div id="last_comment_div_for_insert_before" style="height:50px;"> </div>
       </div>
     <% end %>
 </div>

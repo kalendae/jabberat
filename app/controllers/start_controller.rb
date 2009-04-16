@@ -15,8 +15,13 @@ class StartController < ApplicationController
       end
     elsif not params[:id].blank?
       @topic = Topic.find params[:id]
-      @comments = @topic.comments.sort_by{|c| c.created_at}
-      @comments = @comments.reverse
+      @root_comments = @topic.comments.find_all_by_parent_id(nil).sort_by{|c| c.created_at}
+      @root_comments = @root_comments.reverse
+      @comments = []
+      @root_comments.each do |root_comment|
+        @comments += root_comment.with_children_in_order
+      end
     end 
   end
+
 end
