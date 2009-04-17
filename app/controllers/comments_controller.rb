@@ -50,6 +50,8 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
     @comment.topic = @topic
+    @topic.updated_at = Time.now
+    @topic.save
     @comment.user = current_user
 
     respond_to do |format|

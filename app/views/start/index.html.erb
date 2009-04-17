@@ -32,8 +32,9 @@
   .topic_in_list {
     margin: 10px 10px 0px 10px;
     border: solid 1px #fff;
-    padding: 5px;
+    padding: 2px 5px;
     background-color: #f4f4f4;
+    height: 35px;
   }
   .topic_owner_in_list {
     float: left;
@@ -46,15 +47,16 @@
     margin-left: 35px;
     font-size: 12px;
     font-family: arial, helvetica, sans-serif;
+    height: 15px;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    overflow:hidden;
+    -moz-binding: url('/stylesheets/ellipsis.xml#ellipsis');
   }
   .topic_content_link_in_list {
     text-decoration: none;
     color: #507090; 
-  }
-  .topic_time_in_list {
-    font-size: 11px;
-    color: #aaa;
-    margin-left: 35px;
   }
   div#existing_suggestions {
     width: 70%;
@@ -188,6 +190,19 @@
           font-size: 12px;
           color: #bbb;
           }
+  .topic_replies_in_list {
+          float: left;
+          font-size: 11px;
+          color: #aaa;
+          }
+  .topic_time_in_list {
+          font-size: 11px;
+          color: #aaa;
+          float: left;
+          }
+  .topic_info_line {
+          margin-left: 35px;
+          }
 </style>
 
 <div id="pullout">
@@ -199,13 +214,21 @@
       <% @hot_topics.each do |topic| %>
           <div class="topic_in_list">
               <%= link_to(image_tag(gravatar_url_for(topic.user), :width => 30, :height => 30, :class => 'owner_pic_in_list'),topic.user, :class => 'topic_owner_in_list') %>
-              <div class="topic_content_in_list">
-                <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
-                      <%= topic.content %>
-                </a>
-              </div>
-              <div class="topic_time_in_list">
-                  <%= time_ago_in_words(topic.updated_at) %> ago
+              <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
+                <div class="topic_content_in_list"><%= topic.content %></div>
+              </a>
+              <div class="topic_info_line">
+                <div class="topic_replies_in_list">
+                    <% if topic.comments.size > 0 %>
+                      <%= topic.comments.count %> replies,
+                    <% else %>
+                      new topic
+                    <% end %>
+                </div>
+                <div class="topic_time_in_list">
+                    &nbsp;updated <%= time_ago_in_words(topic.updated_at) %> ago
+                </div>
+                <div style="clear:left;"> </div>
               </div>
           </div>
       <% end %>
@@ -239,13 +262,21 @@
               <% @topics.each do |topic| %>
                   <div class="topic_in_list">
                       <%= link_to(image_tag(gravatar_url_for(topic.user), :width => 30, :height => 30, :class => 'owner_pic_in_list'),topic.user, :class => 'topic_owner_in_list') %>
-                      <div class="topic_content_in_list">
-                        <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
-                              <%= topic.content %>
-                        </a>
-                      </div>
-                      <div class="topic_time_in_list">
-                          <%= time_ago_in_words(topic.updated_at) %> ago
+                      <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
+                        <div class="topic_content_in_list"><%= topic.content %></div>
+                      </a>
+                      <div class="topic_info_line">
+                        <div class="topic_replies_in_list">
+                            <% if topic.comments.size > 0 %>
+                              <%= topic.comments.count %> replies,
+                            <% else %>
+                              new topic
+                            <% end %>
+                        </div>
+                        <div class="topic_time_in_list">
+                            &nbsp;updated <%= time_ago_in_words(topic.updated_at) %> ago
+                        </div>
+                        <div style="clear:left;"> </div>
                       </div>
                   </div>
               <% end %>

@@ -24,4 +24,8 @@ class StartController < ApplicationController
     end 
   end
 
+  def test
+   render :layout => false
+  end
+  
 end
