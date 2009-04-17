@@ -49,7 +49,6 @@ class TopicsController < ApplicationController
     @topic.user = current_user
     respond_to do |format|
       if @topic.save
-        flash[:notice] = 'Topic was successfully created.'
         format.html { redirect_to(:controller => :start, :action => :index, :id => @topic) }
         format.xml  { render :xml => @topic, :status => :created, :location => @topic }
       else
