@@ -324,7 +324,7 @@
                 <%= link_to "#{@topic.user.login}:", @topic.user %>
             </div>
             <div class="topic_content">
-              <%= @topic.content %>
+              <%= auto_jabber_link @topic.content %>
             </div>
             <div class="topic_time">
                 <%= time_ago_in_words(@topic.updated_at) %> ago
@@ -346,7 +346,7 @@
                   <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user), :width => 15, :height => 15)} #{comment.user.login}')", :class => "comment_reply_link" %>
               </div>
               <div class="comment_content">
-                <%= link_to "#{comment.user.login}:", comment.user, :class => "comment_owner_link" %> <%= comment.content %>
+                <%= link_to "#{comment.user.login}:", comment.user, :class => "comment_owner_link" %> <%= auto_jabber_link comment.content %>
               </div>
               <div class="comment_time">
                   <%= time_ago_in_words(comment.created_at) %> ago

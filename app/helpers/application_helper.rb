@@ -19,4 +19,14 @@ module ApplicationHelper
     end
   end
 
+  def auto_jabber_link(text)
+    auto_link(text) do |t|
+      slash_parts = t.split('//').last.split('/')
+      if slash_parts.size > 1
+        slash_parts.first + "/..."
+      else
+        slash_parts.first
+      end
+    end
+  end
 end
