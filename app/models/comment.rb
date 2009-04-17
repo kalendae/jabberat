@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
 
   def with_children_in_order
     r = [self]
-    self.children.each do |child|
+    self.children.reverse.each do |child|
       r += child.with_children_in_order
     end
     r
