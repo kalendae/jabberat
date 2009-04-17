@@ -9,10 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090416190341) do
+ActiveRecord::Schema.define(:version => 20090417020300) do
 
   create_table "comments", :force => true do |t|
-    t.string   "content",    :limit => 1024
+    t.string   "content",    :limit => 512
     t.integer  "user_id"
     t.integer  "topic_id"
     t.datetime "created_at"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20090416190341) do
   end
 
   create_table "topics", :force => true do |t|
-    t.string   "content",    :limit => 1024
+    t.string   "content",    :limit => 512
     t.integer  "user_id"
     t.string   "image_url"
     t.datetime "created_at"
