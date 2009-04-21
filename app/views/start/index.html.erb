@@ -1,209 +1,6 @@
-<style type="text/css">
-  textarea#topic_content {
-    border: solid 1px #999;
-    height: 40px;
-    width: 400px;
-  }
-  input#t {
-    border: solid 1px #999;
-    width: 400px;
-    margin-left: 8px;
-  }
-  input[type=submit] {
-    border: solid 1px #999;
-    width: 58px;
-    margin-left: 8px;
-  }
-  label {
-    font-size: 12px;
-    font-weight: bold;
-    color: #666;
-  }
-  div#main_deal {
-    margin-top: 40px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    text-align: left;
-  }
-  div#creation_prompt {
-    margin-top: 10px;        
-  }
-  .topic_in_list {
-    margin: 10px 10px 0px 10px;
-    border: solid 1px #fff;
-    padding: 2px 5px;
-    background-color: #f4f4f4;
-    height: 35px;
-  }
-  .topic_owner_in_list {
-    float: left;
-    border: none;
-  }
-  .owner_pic_in_list {
-    border: none;        
-  }
-  .topic_content_in_list {
-    margin-left: 35px;
-    font-size: 12px;
-    font-family: arial, helvetica, sans-serif;
-    height: 15px;
-    white-space:nowrap;
-    text-overflow:ellipsis;
-    -o-text-overflow:ellipsis;
-    overflow:hidden;
-    -moz-binding: url('/stylesheets/ellipsis.xml#ellipsis');
-  }
-  .topic_content_link_in_list {
-    text-decoration: none;
-    color: #507090; 
-  }
-  div#existing_suggestions {
-    width: 70%;
-    margin-left: 20px;
-    text-align: left;
-  }
-  div#exist_prompt {
-    margin: 10px;
-  }
-  div#topic_area {
-          margin-top: 50px;
-          margin-left: auto;
-          margin-right: auto;
-          width: 90%;
-          }
-  div#the_topic {
-      padding: 5px;
-      background-color: #f4f4ff;
-      text-align: left;
-      min-height:80px; 
-      height:auto;
-  }
-  .comment {
-          padding: 5px;
-          background-color: #f4f4ff;
-          text-align: left;
-          min-height:40px; 
-          height:auto;
-          margin-top: 10px;
-          width: 60%;
-          overflow: hidden;
-          }
-  .root {
-          }
-  .owner_pic, .comment_owner_pic {
-      border: solid 1px #fff;
-      float: left;
-  }
-  .topic_content {
-      margin-left: 70px;
-      font-family: arial, helvetica, sans-serif;
-      font-size: 18px;
-      color: #000;
-  }
-  .comment_content {
-          margin-left: 50px;
-          margin-right: 50px;
-          font-family: verdana, sans-serif;
-          font-size: 12px;
-          color: #000;
-          }
-  .topic_time {
-          font-size: 13px;
-          color: #666;
-          margin-left: 70px;
-  }
-  .comment_time {
-          font-size: 11px;
-          color: #bbb;
-          margin-left: 50px;
-          }
-  .topic_owner_name {
-          font-size: 16px;
-          color: #aaa;
-          margin-left: 70px;
-          }
-  .comment_text_area {
-          width: 100%;
-          height: 30px;
-          border: solid 1px #99c;
-          }
-  div#topic_reply {
-          width: 60%;
-          text-align: left;
-          margin-top: 10px;
-          margin-left: 2%;
-          }
-  .comment_reply {
-          width: 60%;
-          text-align: left;
-          margin-top: 10px;
-          }
-  .reply_to {
-          font-size: 13px;
-          color: #aaa;
-          }
-  .comment_submit {
-          color: #fff;
-          border: solid 1px #449 !important;
-          background-color: #99E;
-          margin-left: 0px !important;
-          font-size: 11px;
-          }
-  .comment_owner_link {
-          text-decoration: none;
-          color: #6090aa;
-          }
-  .comment_actions {
-          float: right;
-          font-size: 12px;
-          font-family: verdana, sans-serif;
-          }
-  .comment_reply_link {
-          text-decoration: none;
-          color: #6090AA;
-          }
-  .comment_cancel {
-          font-size: 12px;
-          }
-  .search_prompt {
-          font-size: 18px;
-          }
-  .search_box {
-          border: solid 1px #999;
-          width: 100%;
-          height: 40px;
-          }
-  .search_go {
-          float: right;
-          }
-  div#search_inner {
-          width: 60%;
-          }
-  div#mid_content {
-          width: 90%;
-          text-align: left;
-          margin-left: auto;
-          margin-right: auto;
-          }
-  .prompt_help {
-          font-size: 12px;
-          color: #bbb;
-          }
-  .topic_replies_in_list {
-          float: left;
-          font-size: 11px;
-          color: #aaa;
-          }
-  .topic_time_in_list {
-          font-size: 11px;
-          color: #aaa;
-          float: left;
-          }
-  .topic_info_line {
-          margin-left: 35px;
-          }
-</style>
+<%= stylesheet_link_tag 'home' %>
+
+<%# PULLOUT %>
 
 <div id="pullout">
   <div id="logo">Jabber@t</div>
@@ -237,12 +34,16 @@
 
 <div id="main_space">
 
+    <%# FLASH NOTICE AREA %>
+
     <% if flash[:notice] -%>
         <p class="notice"><%= flash[:notice] %></p>
     <% end -%>
     <% if flash[:error] -%>
         <p class="error"><%= flash[:error] %></p>
     <% end -%>
+
+    <%# TOPIC SEARCH %>
 
     <% form_tag '', :method => 'get' do -%>
         <div id="main_deal">
@@ -254,6 +55,9 @@
             </div>
         </div>
     <% end %>
+
+    <%# EXISTING TOPIC PROMPTS %>
+
     <% unless @content.blank? %>
       <div id="mid_content">
         <% unless @topics.blank? %>
@@ -292,8 +96,13 @@
         </div>
       </div>
     <% end %>
-    
+
+    <%# TOPIC & COMMENTS BODY %>
+
     <% if @content.blank? and !@topic.id.blank? %>
+
+      <%# JAVASCRIPT FUNCTION TO ADD REPLY SECTIONS %>
+
       <script type="text/javascript">
           function reply_to(comment_id, level, prompt) {
             parent_div = $('comment_' + comment_id);
@@ -317,14 +126,30 @@
             }
           }
       </script>
+
+
       <div id="topic_area">
-        <div id="the_topic">
+
+        <%# TOPIC %>
+
+        <div id="the_topic" class="back_default" onmouseover="this.className='back_moused_over';$('topic_edit_link').style.display='';" onmouseout="this.className='back_default';$('topic_edit_link').style.display='none';">
             <%= link_to(image_tag(gravatar_url_for(@topic.user), :width => 60, :height => 60, :class => 'owner_pic'),@topic.user, :class => 'topic_owner') %>
             <div class="topic_owner_name">
                 <%= link_to "#{@topic.user.login}:", @topic.user %>
             </div>
-            <div class="topic_content">
+            <div id="topic_content" class="topic_content">
               <%= auto_jabber_link @topic.content %>
+            </div>
+            <% if @topic.user == current_user %>
+              <a id="topic_edit_link" onclick="$('topic_content').hide();$('topic_form').show();$('topic_content_edit').focus();return false;" href="#" class="topic_edit_link" style="display:none;">Edit</a>
+            <% else %>
+              <span id="topic_edit_link" class="inactive_topic_link" style="display:none;">Edit</span>
+            <% end %>
+            <div id="topic_form" class="topic_content" style="display:none;">
+              <% remote_form_for(@topic) do |f| %>
+                <%= f.text_area :content, :value => @topic.content, :id => 'topic_content_edit', :class => "topic_content_edit_area" %><br/>
+                <a id="topic_edit_cancel_link" onclick="$('topic_form').hide();$('topic_content').show();return false;" href="#" style="text-decoration:none;color:#6090AA;font-size: 14px;">Cancel</a> | <%= f.submit "Update" %>
+              <% end %>
             </div>
             <div class="topic_time">
                 <%= time_ago_in_words(@topic.updated_at) %> ago
@@ -339,14 +164,29 @@
               <%= f.submit "Submit", :class => "comment_submit" %>
             <% end %>
         </div>
+
+        <%# COMMENTS %>
+
         <% @comments.each do |comment| %>
-          <div class="comment <% if comment.level.to_i == 0 %>root<% end %>" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;" id="comment_<%= comment.id %>">
+          <div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
               <%= link_to(image_tag(gravatar_url_for(comment.user), :width => 35, :height => 35, :class => 'comment_owner_pic'),comment.user, :class => 'comment_owner') %>
               <div class="comment_actions">
                   <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user), :width => 15, :height => 15)} #{comment.user.login}')", :class => "comment_reply_link" %>
+                  <br/>
+                  <% if comment.user == current_user %>
+                    <a id="comment_edit_link_<%= comment.id %>" onclick="$('comment_content_<%= comment.id %>').hide();$('comment_form_<%= comment.id %>').show();$('comment_content_edit_<%= comment.id %>').focus();return false;" href="#" style="display:none;" class="comment_reply_link">Edit</a>
+                  <% else %>
+                    <span id="comment_edit_link_<%= comment.id %>" class="inactive_link" style="display:none;">Edit</span>
+                  <% end %>
               </div>
-              <div class="comment_content">
+              <div id="comment_content_<%= comment.id %>" class="comment_content">
                 <%= link_to "#{comment.user.login}:", comment.user, :class => "comment_owner_link" %> <%= auto_jabber_link comment.content %>
+              </div>
+              <div id="comment_form_<%= comment.id %>" class="comment_content" style="display:none;">
+                <% remote_form_for([@topic,comment]) do |f| %>
+                  <%= f.text_area :content, :value => comment.content, :id => "comment_content_edit_#{comment.id}", :class => "comment_content_edit_area" %><br/>
+                  <a id="comment_edit_cancel_link_<%= comment.id %>" onclick="$('comment_form_<%= comment.id %>').hide();$('comment_content_<%= comment.id %>').show();return false;" href="#" style="text-decoration:none;color:#6090AA;font-size: 14px;">Cancel</a> | <%= f.submit "Update" %>
+                <% end %>
               </div>
               <div class="comment_time">
                   <%= time_ago_in_words(comment.created_at) %> ago

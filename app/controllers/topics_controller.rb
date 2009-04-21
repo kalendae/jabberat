@@ -62,15 +62,16 @@ class TopicsController < ApplicationController
   # PUT /topics/1.xml
   def update
     @topic = Topic.find(params[:id])
-
     respond_to do |format|
       if @topic.update_attributes(params[:topic])
         flash[:notice] = 'Topic was successfully updated.'
         format.html { redirect_to(@topic) }
         format.xml  { head :ok }
+        format.js
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @topic.errors, :status => :unprocessable_entity }
+        format.js
       end
     end
   end

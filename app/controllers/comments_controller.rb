@@ -75,9 +75,11 @@ class CommentsController < ApplicationController
         flash[:notice] = 'Comment was successfully updated.'
         format.html { redirect_to(@comment) }
         format.xml  { head :ok }
+        format.js
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
+        format.js
       end
     end
   end

@@ -1,0 +1,3 @@
+page['topic_form'].hide
+page['topic_content'].show
+page.replace_html 'topic_content', auto_jabber_link(@topic.content)

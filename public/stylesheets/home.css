@@ -1,0 +1,285 @@
+textarea#topic_content {
+  border: solid 1px #999;
+  height: 40px;
+  width: 400px;
+}
+
+input#t {
+  border: solid 1px #999;
+  width: 400px;
+  margin-left: 8px;
+}
+
+input[type=submit] {
+  border: solid 1px #999;
+  width: 58px;
+  margin-left: 8px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #666;
+}
+
+div#main_deal {
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  text-align: left;
+}
+
+div#creation_prompt {
+  margin-top: 10px;
+}
+
+.topic_in_list {
+  margin: 10px 10px 0px 10px;
+  border: solid 1px #fff;
+  padding: 2px 5px;
+  background-color: #f4f4f4;
+  height: 35px;
+}
+
+.topic_owner_in_list {
+  float: left;
+  border: none;
+}
+
+.owner_pic_in_list {
+  border: none;
+}
+
+.topic_content_in_list {
+  margin-left: 35px;
+  font-size: 12px;
+  font-family: arial, helvetica, sans-serif;
+  height: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  -moz-binding: url( '/stylesheets/ellipsis.xml#ellipsis' );
+}
+
+.topic_content_link_in_list {
+  text-decoration: none;
+  color: #507090;
+}
+
+div#existing_suggestions {
+  width: 70%;
+  margin-left: 20px;
+  text-align: left;
+}
+
+div#exist_prompt {
+  margin: 10px;
+}
+
+div#topic_area {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+div#the_topic {
+  padding: 5px;
+  text-align: left;
+  min-height: 80px;
+  height: auto;
+  width: 65%;
+  position: relative;
+}
+.back_default {
+  background-color: #f4f4ff;
+}
+.back_moused_over {
+  background-color: #e0e0ff;
+}
+.comment {
+  padding: 5px;
+  text-align: left;
+  min-height: 40px;
+  height: auto;
+  margin-top: 10px;
+  width: 60%;
+  overflow: hidden;
+}
+
+.root {
+}
+
+.owner_pic, .comment_owner_pic {
+  border: solid 1px #fff;
+  float: left;
+}
+
+.topic_content {
+  margin: 2px 50px 0px 70px;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 18px;
+  color: #000;
+}
+.topic_content_edit_area {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 18px;
+  color: #000;
+  width: 100%;
+  height: 65px;
+  border: solid 1px #999;  
+}
+.comment_content_edit_area {
+  color: #000;
+  width: 100%;
+  height: 30px;
+  border: solid 1px #999;
+}
+
+.comment_content {
+  margin-left: 50px;
+  margin-right: 50px;
+  font-family: verdana, sans-serif;
+  font-size: 12px;
+  color: #000;
+}
+
+.topic_edit_link {
+  position:absolute;
+  top:10px;
+  right:10px;
+  text-decoration:none;
+  color:#6090AA;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 18px;
+}
+.inactive_topic_link {
+  position:absolute;
+  top:10px;
+  right:10px;
+  text-decoration:none;
+  color: #ccc;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 18px;
+}
+.inactive_link {
+  color: #ccc;  
+}
+
+.topic_time {
+  font-size: 13px;
+  color: #666;
+  margin-left: 70px;
+}
+
+.comment_time {
+  font-size: 11px;
+  color: #bbb;
+  margin-left: 50px;
+}
+
+.topic_owner_name {
+  font-size: 16px;
+  color: #aaa;
+  margin-left: 70px;
+}
+
+.comment_text_area {
+  width: 100%;
+  height: 30px;
+  border: solid 1px #99c;
+}
+
+div#topic_reply {
+  width: 60%;
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 2%;
+}
+
+.comment_reply {
+  width: 60%;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.reply_to {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.comment_submit {
+  color: #fff;
+  border: solid 1px #449 !important;
+  background-color: #99E;
+  margin-left: 0px !important;
+  font-size: 11px;
+}
+
+.comment_owner_link {
+  text-decoration: none;
+  color: #6090aa;
+}
+
+.comment_actions {
+  float: right;
+  font-size: 12px;
+  font-family: verdana, sans-serif;
+}
+
+.comment_reply_link {
+  text-decoration: none;
+  color: #6090AA;
+}
+
+.comment_cancel {
+  font-size: 12px;
+}
+
+.search_prompt {
+  font-size: 18px;
+}
+
+.search_box {
+  border: solid 1px #999;
+  width: 100%;
+  height: 40px;
+}
+
+.search_go {
+  float: right;
+}
+
+div#search_inner {
+  width: 60%;
+}
+
+div#mid_content {
+  width: 90%;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prompt_help {
+  font-size: 12px;
+  color: #bbb;
+}
+
+.topic_replies_in_list {
+  float: left;
+  font-size: 11px;
+  color: #aaa;
+}
+
+.topic_time_in_list {
+  font-size: 11px;
+  color: #aaa;
+  float: left;
+}
+
+.topic_info_line {
+  margin-left: 35px;
+}
