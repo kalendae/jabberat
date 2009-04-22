@@ -47,7 +47,7 @@ module ApplicationHelper
       return "#{topic.last_comment.user.login} commented on a topic you created"
     elsif notification.class == Comment
       comment = notification
-      return "#{comment.user.login} replied to your comment"
+      return "#{comment.last_reply.user.login} replied to your comment"
     end
     ""
   end
