@@ -29,4 +29,27 @@ module ApplicationHelper
       end
     end
   end
+
+  def notification_html(notification)
+    if notification.class == Topic
+      topic = notification
+      return "#{link_to(image_tag(gravatar_url_for(topic.last_comment.user), :width => 20, :height => 20, :class => 'owner_pic_in_list'),topic.last_comment.user, :class => 'topic_owner_in_list')}#{link_to("<div class='topic_content_in_list' style='margin-left:25px;'>#{topic.last_comment.content}</div>",{:controller => :start, :action => :index, :id => topic}, :class => 'topic_content_link_in_list')}"
+    elsif notification.class == Comment
+      comment = notification
+      return "#{link_to(image_tag(gravatar_url_for(comment.last_reply.user), :width => 20, :height => 20, :class => 'owner_pic_in_list'),comment.last_reply.user, :class => 'topic_owner_in_list')}#{link_to("<div class='topic_content_in_list' style='margin-left:25px;'>#{comment.last_reply.content}</div>",{:controller => :start, :action => :index, :id => comment.topic}, :class => 'topic_content_link_in_list')}"
+    end
+    ""
+  end
+
+  def notification_explanation_html(notification)
+    if notification.class == Topic
+      topic = notification
+      return "#{topic.last_comment.user.login} commented on a topic you created"
+    elsif notification.class == Comment
+      comment = notification
+      return "#{comment.user.login} replied to your comment"
+    end
+    ""
+  end
+
 end

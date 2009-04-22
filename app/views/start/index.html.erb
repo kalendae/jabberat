@@ -29,6 +29,32 @@
               </div>
           </div>
       <% end %>
+      <div style="height:10px;"> </div>
+      <div class="medium_heading">
+          Your Current Stuff
+      </div>
+      <% if current_user %>
+        <% @notifications.each do |n| %>
+            <div class="topic_in_list">
+                <a href="<%= url_for(:controller => :start, :action => :index, :id => n.topic) %>" class="topic_content_link_in_list">
+                  <%=  notification_html n %>
+                </a>
+                <div class="topic_info_line"  style="margin-left: 25px;">
+                  <div class="topic_replies_in_list">
+                      <%= notification_explanation_html n %>
+                  </div>
+                  <div class="topic_time_in_list">
+                    &nbsp;<%= time_ago_in_words(n.last_reply.created_at) %> ago
+                  </div>
+                </div>
+                <div style="clear:left;"> </div>
+            </div>
+        <% end %>
+      <% else %>
+        <div class="prompt_login">
+            <%= link_to 'Login', login_path %> to see activities on topics you've created or participated in.
+        </div>
+      <% end %>
   </div>
 </div>
 

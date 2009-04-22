@@ -12,4 +12,25 @@ class Comment < ActiveRecord::Base
     r
   end
 
+  def last_activity_time
+    last_reply = self.with_children_in_order.inject do |memo,comment|
+      memo.created_at > comment.created_at ? memo : comment
+    end
+    last_reply.created_at
+  end
+
+  def last_reply
+    last_reply = self.with_children_in_order.inject do |memo,comment|
+      memo.created_at > comment.created_at ? memo : comment
+    end
+  end
+
+  def parent_by_user(user)
+    p = parent
+    while p != nil and p.user != user
+      p = p.parent
+    end
+    p
+  end
+
 end
