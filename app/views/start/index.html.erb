@@ -181,6 +181,9 @@
                 <%= time_ago_in_words(@topic.updated_at) %> ago
             </div>
         </div>
+        <div id="invite_people">
+            
+        </div>
         <div id="topic_reply">
             <div class="reply_to">
                 Your reply to <%= image_tag(gravatar_url_for(@topic.user), :width => 15, :height => 15) %> <%= @topic.user.login %>

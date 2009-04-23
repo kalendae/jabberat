@@ -52,4 +52,8 @@ module ApplicationHelper
     ""
   end
 
+  def activity(act)
+    "#{act.user.login} said '#{link_to(act.content, {:controller => :start, :action => :index, :id => act.topic.id}, :class => 'activity_link')}'"
+  end
+
 end

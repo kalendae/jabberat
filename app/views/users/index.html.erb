@@ -24,24 +24,26 @@
   .profile_pic {
     padding: 2px;
     border: solid 1px #999;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     margin-top: 10px;
   }
   .user_tile {
     float: left;
-    width: 110px;
-    height: 180px;
+    width: 130px;
+    height: 220px;
     margin: 10px;
     border: solid 1px #999;
     background-color: #eee;
     text-align: center;
   }
   .user_login {
+    font-weight: bold;
+    color: #6090AA;
   }
   .user_info {
     font-size: 10px;
-    height: 30px;
+    height: 12px;
   }
   .button_link {
     border: solid 1px #3355BB;
@@ -49,7 +51,23 @@
     color: white;
     padding: 2px 5px;
     font-size: 11px;
+    text-decoration: none;
   }
+  .unfollow {
+          border: solid 1px #5577EE;
+          background-color: #aaddff;
+          }
+  .inactive_button {
+          border: solid 1px #3355BB;
+          background-color: #f5f5f5;
+          color: #e0e0e0;
+          padding: 2px 5px;
+          font-size: 11px;
+          text-decoration: none;
+          }
+  .follow_link {
+          margin-top: 5px;
+          }
 </style>
 
 <div id="page">
@@ -65,16 +83,33 @@
 
   <div id="users_panel">
       <% @users.each do |user| %>
-        <div class="user_tile">
-          <a href="<%= url_for user %>">
-            <%= image_tag(gravatar_url_for(user), :width => 80, :height => 80, :class => "profile_pic")%>
+        <div id="user_<%= user.id %>" class="user_tile">
+          <a href="<%= url_for user %>" style="text-decoration:none;">
+            <%= image_tag(gravatar_url_for(user), :width => 100, :height => 100, :class => "profile_pic")%>
             <div class="user_login"><%= user.login %></div>
           </a>
           <div class="user_info">
               Joined: <%= time_ago_in_words(user.created_at) %> ago.
           </div>
+          <div class="user_info">
+              Topics: <%= user.topics.count %>
+          </div>
+          <div class="user_info">
+              Comments: <%= user.comments.count %>
+          </div>
+          <div class="user_info">
+              Followers: <%= user.followers_count %>
+          </div>
           <div class="follow_link">
-              <%= link_to "Follow", "#", :class => "button_link" %>
+              <% if current_user and current_user == user %>
+                  <%= link_to "My Profile", user, :class => "button_link" %>
+              <% elsif current_user and current_user.following?(user) %>
+                  <%= link_to "Show", user, :class => "button_link" %> |
+                  <%= link_to "Unfollow", {:controller => :users, :action => :unfollow, :id => user.id}, :class => "button_link unfollow" %>
+              <% else %>
+                <%= link_to "Show", user, :class => "button_link" %> |
+                <%= link_to "Follow", {:controller => :users, :action => :follow, :id => user.id}, :class => "button_link" %>
+              <% end %>
           </div>
         </div>
       <% end %>

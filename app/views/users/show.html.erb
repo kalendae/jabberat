@@ -1,93 +1,174 @@
 <style type="text/css">
-  div#page {
-          margin: 20px;
-          color: #888;
-  }
-  table#profile {
-    width: 90%;
-  }
-  input[type=text], input[type=password] {
-    border: solid 1px #999;
-    margin-top: 5px;
-  }
-  input[type=submit] {
-    border: solid 1px #999;
-    margin-top: 5px;
-  }
-  label {
-    font-size: 12px;
-    margin-left: 20px;
-  }
-  div#side_image {
-    float:left;
-    margin-left: 20px;
-    filter:alpha(opacity=5);-moz-opacity:.05;opacity:.05;
-  }
-  .profile_pic {
-    border: solid 1px #999;
-    width: 80px;
-    height: 80px;
-    margin: 0px 10px;
-  }
-  div#gravatar_link {
-    font-size: 9px;
-    margin: 0px 10px 20px 10px;
-  }
-  div#login_name {
-    margin: 10px 10px 5px 10px;
-  }
-  div#profile_summary {
-    color: #ccc;
-    margin: 40px 0px 0px 40px;
-  }
-  .activity {
-    margin: 0px 0px 0px 20px;
-  }
-  div#profile_box {
-    border: solid 1px #eee;
-    width: 260px;
-  }
+    div#page {
+            margin: 20px;
+            color: #888;
+            }
+            table#profile {
+                    width: 90%;
+                    vertical-align: top;
+                    }
+            input[type=text], input[type=password] {
+                    border: solid 1px #999;
+                    margin-top: 5px;
+                    }
+            input[type=submit] {
+                    border: solid 1px #999;
+                    margin-top: 5px;
+                    }
+            label {
+                    font-size: 12px;
+                    margin-left: 20px;
+                    }
+            div#side_image {
+                    float:left;
+                    margin-left: 20px;
+                    filter:alpha(opacity=5);-moz-opacity:.05;opacity:.05;
+                    }
+            .profile_pic {
+                    width: 200px;
+                    height: 200px;
+                    }
+            div#gravatar_link {
+                    font-size: 9px;
+                    }
+            div#login_name {
+                    font-weight: bold;
+                    color: #6090AA;
+                    font-size: 18px;
+                    }
+            div#profile_summary {
+                    color: #ccc;
+                    margin: 40px 0px 0px 40px;
+                    }
+            .activity {
+                    margin: 0px 0px 0px 20px;
+                    }
+            div#profile_box {
+                    width: 230px;
+                    }
+    div#activities {
+            font-size: 14px;
+            }
+            .activity_link {
+                    color: #6090AA;
+                    text-decoration: none;
+                    }
+            .user_info {
+              font-size: 14px;
+              height: 18px;
+            }
+            div#about_me {
+                    background-color: #f0f0ff;
+                    margin-top: 30px;
+                    padding: 20px;
+                    width: 300px;
+                    }
+    td {
+            vertical-align: top;
+            }
+    .summary_header {
+            font-size: 18px;
+            margin: 0px 0px 0px 0px;
+            }
+    .follow_icons {
+            margin-bottom: 20px;
+            }
+    .follow_pic {
+            width: 30px;
+            height: 30px;
+            }
+    .follow_pic_link {
+            text-decoration: none;
+            border: none;
+            }
+
 </style>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/niftyCorners.css" media="screen">
+<script type="text/javascript" src="/javascripts/niftycube.js"></script>
 
 <div id="page">
 
-  <%= error_messages_for :user %>
-  <% if flash[:notice] -%>
-      <p class="notice"><%= flash[:notice] %></p>
-  <% end -%>
-  <% if flash[:error] -%>
-      <p class="error"><%= flash[:error] %></p>
-  <% end -%>
+    <%= error_messages_for :user %>
+    <% if flash[:notice] -%>
+        <p class="notice"><%= flash[:notice] %></p>
+    <% end -%>
+    <% if flash[:error] -%>
+        <p class="error"><%= flash[:error] %></p>
+    <% end -%>
 
-
-  <table id="profile">
-      <tr><td>
-        <div id="profile_box">
-          <div id="login_name"><%= @user.login %></div>
-          <%= image_tag(gravatar_url_for(@user), :width => 80, :height => 80, :class => "profile_pic")%>
-          <% if @user == current_user %>
-            <div id="gravatar_link">
-              <%= link_to "Change/Setup", "http://en.gravatar.com/" %> Gravatar<br/>
-              or enter image url for your avatar (we like squares):
-              <div id="avatar_link">
-                <form action="update_avatar_url/<%= current_user.id %>">
-                    <input type="text" id="user_avatar_url" name="user[avatar_url]"/>
-                    <input type="submit"/>
-                </form>
+    <table id="profile">
+        <tr>
+            <td style="width:230px">
+                <div id="profile_box">
+                    <div id="login_name"><%= @user.login %></div>
+                    <%= image_tag(gravatar_url_for(@user), :class => "profile_pic") %>
+                    <% if @user == current_user %>
+                        <div id="gravatar_link">
+                            <%= link_to "Change/Setup", "http://en.gravatar.com/" %> Gravatar or<br/>
+                            enter image url for your avatar (we like big squares):
+                            <div id="avatar_link">
+                                <form action="update_avatar_url/<%= current_user.id %>">
+                                    <input type="text" id="user_avatar_url" name="user[avatar_url]"/>
+                                    <input type="submit" value="Submit"/>
+                                </form>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </td>
+            <td style="width: 300px;">
+              <div id="about_me">
+                  <div class="user_info">
+                      Joined: <%= time_ago_in_words(@user.created_at) %> ago.
+                  </div>
+                  <div class="user_info">
+                      Topics: <%= @user.topics.count %>
+                  </div>
+                  <div class="user_info">
+                      Comments: <%= @user.comments.count %>
+                  </div>
               </div>
-            </div>
-          <% end %>
-        </div>
-      </td><td>
-        <div id="profile_summary">
-            Summary Statistics
-        </div>
-      </td></tr>
-  </table>
+            </td>
+            <td>
+                <div id="profile_summary">
+                    <div class="summary_header">
+                        Following:
+                    </div>
+                    <div class="follow_icons">
+                        <% @user.all_following.each do |u| %>
+                          <%= link_to(image_tag(gravatar_url_for(u), :class => 'follow_pic'),u, :class => 'follow_pic_link') %>
+                        <% end %>
+                    </div>
+                    <div class="summary_header">
+                        Followers:
+                    </div>
+                    <div class="follow_icons">
+                        <% @user.followers.each do |u| %>
+                          <%= link_to(image_tag(gravatar_url_for(u), :class => 'follow_pic'),u, :class => 'follow_pic_link') %>
+                        <% end %>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 
-  <div id="activities">
-      <h4>Recent Jabbers:</h4>
-      <div class="activity"></div>
-  </div>
+    <div id="activities">
+        <h4>Recent Jabbers:</h4>
+        <table>
+        <% @items.each do |item| %>
+          <tr>
+            <td class="activity_time"><%= time_ago_in_words(item.created_at) %> ago</td>
+            <td class="activity">
+                <%= activity(item) %>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+      Nifty("div#about_me");
+    </script>
 
 </div>

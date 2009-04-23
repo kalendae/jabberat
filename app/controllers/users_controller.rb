@@ -5,10 +5,28 @@ class UsersController < ApplicationController
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :login_required, :only => [:update_avatar_url]
+  before_filter :login_required, :only => [:update_avatar_url, :follow, :unfollow]
 
   def index
     @users = User.find_all_by_deleted_at(nil)
+  end
+
+  def follow
+    @user = User.find params[:id]
+    current_user.follow(@user)
+    flash[:notice] = "You are now following #{@user.login}"
+    respond_to do |format|
+      format.html {redirect_to(@user)}  
+    end
+  end
+
+  def unfollow
+    @user = User.find params[:id]
+    current_user.stop_following(@user)
+    flash[:notice] = "You have stopped following #{@user.login}"
+    respond_to do |format|
+      format.html {redirect_to(@user)}  
+    end
   end
 
   def show
@@ -17,6 +35,9 @@ class UsersController < ApplicationController
     else
       @user = User.find params[:id]
     end
+    @items = @user.topics + @user.comments
+    @items = @items.sort_by{|i| i.created_at}.reverse[0..9]
+    puts 'gogogo'
   end
 
   def update_avatar_url
