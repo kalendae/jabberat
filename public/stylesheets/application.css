@@ -87,4 +87,18 @@ div#main_space {
   font-size: 12px;
   color: #FF7733;
 }
-
+div#ajax_notifier {
+  position: absolute;
+  padding: 38px 18px;
+  background-color: #fffff0;
+  border: solid 1px #999;
+  border-top: none;
+  text-align: center;
+  width: 680px;
+  top: 0px;
+  left: 50%;
+  margin-left: -360px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #aaaa77;
+}

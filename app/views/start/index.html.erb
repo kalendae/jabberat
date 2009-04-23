@@ -161,7 +161,7 @@
         <div id="the_topic" class="back_default" onmouseover="this.className='back_moused_over';$('topic_edit_link').style.display='';" onmouseout="this.className='back_default';$('topic_edit_link').style.display='none';">
             <%= link_to(image_tag(gravatar_url_for(@topic.user), :width => 60, :height => 60, :class => 'owner_pic'),@topic.user, :class => 'topic_owner') %>
             <div class="topic_owner_name">
-                <%= link_to "#{@topic.user.login}:", @topic.user %>
+                <%= link_to "#{@topic.user.login}:", @topic.user, :class => 'topic_owner_login' %>
             </div>
             <div id="topic_content" class="topic_content">
               <%= auto_jabber_link @topic.content %>
@@ -180,9 +180,31 @@
             <div class="topic_time">
                 <%= time_ago_in_words(@topic.updated_at) %> ago
             </div>
-        </div>
-        <div id="invite_people">
-            
+            <div id="invite_people">
+              <% if current_user %>
+                <%= link_to "Invite others by email", "#", :class => 'invite_link', :onclick => "$('invite_form_div').toggle();$('emails').focus();return false;" %>
+              <% else %>
+                <div class="inactive_button">Login to invite others</div>
+              <% end %>
+            </div>
+            <% if current_user %>
+              <div id="invite_form_div" style="display:none;">
+                  <% form_remote_tag(:url => {:controller => :start, :action => :email_invites, :id => @topic.id}) do  %>
+                    <div class="invite_email_description">
+                        <strong>Enter emails in a comma delimited list </strong><br/>
+                        example:  bob@somewhere.com, lindsay@anotherplace.org, chad@nowhere.com<br/>
+                        Note that we do not keep the emails in anyway and only use them this one time to send an invitation.
+                    </div>
+                    <%= text_area_tag :emails, nil, :class => "invite_email_text_area" %>
+                    <div class="invite_email_description">
+                        <strong>Email Body</strong>
+                    </div>
+                    <%= text_area_tag :content, "Hi,\nI am inviting you to a conversation at #{url_for(:controller => :start, :action => :index, :id => @topic.id, :only_path => false)}:\n   \"#{@topic.content}\"\n- #{current_user.login}", :class => "invite_email_text_area_content" %>
+                    <a id="invite_cancel_link" onclick="$('invite_form_div').hide();return false;" href="#" style="text-decoration:none;color:#6090AA;font-size: 14px;">Cancel</a> |
+                    <%= submit_tag "Invite", :onclick => "$('invite_submit_progress').show();return true;" %> <span id="invite_submit_progress" style="display:none;"><img src="/images/progress_sm.gif" alt=""/> sending emails...</span>
+                  <% end %>
+              </div>
+            <% end %>
         </div>
         <div id="topic_reply">
             <div class="reply_to">
@@ -226,3 +248,5 @@
       </div>
     <% end %>
 </div>
+
+

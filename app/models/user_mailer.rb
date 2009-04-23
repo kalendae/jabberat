@@ -12,6 +12,15 @@ class UserMailer < ActionMailer::Base
     @subject    += 'Your account has been activated!'
     @body[:url]  = "http://jabberAt.com/"
   end
+
+  def invite(current_user, emails, content)
+    @recipients  = "#{emails}"
+    @from        = "hello@jabberAt.com"
+    @subject     = "#{current_user.login} has invited you to a tawk conversation"
+    @sent_on     = Time.now
+    @body[:content] = content
+    @content = content
+  end
   
   protected
     def setup_email(user)

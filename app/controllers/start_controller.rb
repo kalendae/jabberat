@@ -35,5 +35,16 @@ class StartController < ApplicationController
   def test
    render :layout => false
   end
+
+  def email_invites
+    @topic = Topic.find params[:id]
+    @emails = params[:emails]
+    @emailContent = params[:content]
+    UserMailer.deliver_invite(current_user,@emails,@emailContent)
+    respond_to do |format|
+      flash[:notice] = 'Invite email sent.'
+      format.js
+    end
+  end
   
 end
