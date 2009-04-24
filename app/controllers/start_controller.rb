@@ -29,7 +29,17 @@ class StartController < ApplicationController
     if current_user
       items = current_user.comments.select{|c| !c.last_reply.nil? and c.last_reply.user != current_user}
       items += current_user.topics.select{|t| !t.last_comment.nil? and t.last_comment.user != current_user}
-      items = items.sort_by{|i| i.last_activity_time}.reverse.uniq
+      uniqs = []
+      uhash = {}
+      items.each do |item|
+        last = item.last_reply
+        if uhash[last].blank?
+          uhash[last] = true
+          uniqs << item
+        end
+      end
+      items = uniqs.sort_by{|i| i.last_activity_time}.reverse
+
       @notifications = items[0..6]
     end
   end
