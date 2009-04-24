@@ -338,7 +338,26 @@ span#invite_submit_progress{
 }
 div#right_panel {
   float: right;
-  width: 20%;
-  height: 400px;
+  width: 25%;
   background-color: #f0f0f5;
+  text-align: left;
+}
+.right_panel_header {
+  margin: 15px;
+  font-size: 14px;
+  color: #88a;
+}
+.follow_pic {
+  width: 38px;
+  height: 38px;
+  border:none;
+}
+.follow_pic_link {
+  border: none;
+}
+.user_list {
+  margin: 15px;
+  min-height:38px;
+  height:auto !important;
+  height:38px;
 }
