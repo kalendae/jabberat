@@ -174,7 +174,7 @@
               if (child_div) {
                 child_div.parentNode.removeChild(child_div);
               } else {
-                child_html = "<div id='comment_reply_" + comment_id + "' class='comment_reply' style='margin-left:"+ (2 * (level + 2)) + "%;'>" +
+                child_html = "<div id='comment_reply_" + comment_id + "' class='comment_reply' style='margin-left:"+ (2 * (level + 2)) + "%;width:"+ (65 - (2 * (level + 2))) +"%'>" +
                              "  <div class='reply_to'>" + prompt + "</div>" +
                              "  <form class='new_comment' method='post' action='/topics/" + "<%= @topic.id %>" + "/comments'>" +
                              "    <input type='hidden' name='authenticity_token' value='" + "<%= form_authenticity_token() %>" + "'/>" +
@@ -252,7 +252,7 @@
         <%# COMMENTS %>
 
         <% @comments.each do |comment| %>
-          <div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
+          <div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;width:<%= 65 - (2 * (comment.level.to_i + 1)) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
               <%= link_to(image_tag(gravatar_url_for(comment.user), :width => 35, :height => 35, :class => 'comment_owner_pic'),comment.user, :class => 'comment_owner') %>
               <div class="comment_actions">
                   <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user), :width => 15, :height => 15)} #{comment.user.login}')", :class => "comment_reply_link" %>

@@ -105,7 +105,7 @@ div#the_topic {
   min-height: 40px;
   height: auto;
   margin-top: 10px;
-  width: 60%;
+  width: 63%;
   overflow: hidden;
 }
 
@@ -193,14 +193,14 @@ div#the_topic {
 }
 
 div#topic_reply {
-  width: 60%;
+  width: 63%;
   text-align: left;
   margin-top: 10px;
   margin-left: 2%;
 }
 
 .comment_reply {
-  width: 60%;
+  width: 63%;
   text-align: left;
   margin-top: 10px;
 }
