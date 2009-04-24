@@ -176,17 +176,18 @@
               } else {
                 child_html = "<div id='comment_reply_" + comment_id + "' class='comment_reply' style='margin-left:"+ (2 * (level + 2)) + "%;width:"+ (65 - (2 * (level + 2))) +"%'>" +
                              "  <div class='reply_to'>" + prompt + "</div>" +
-                             "  <form class='new_comment' method='post' action='/topics/" + "<%= @topic.id %>" + "/comments'>" +
+                             "  <form class='new_comment' method='post' action='/topics/<%= @topic.id %>/comments' onsubmit=\"new Ajax.Request('/topics/<%= @topic.id %>/comments', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this)}); return false;\">" +
                              "    <input type='hidden' name='authenticity_token' value='" + "<%= form_authenticity_token() %>" + "'/>" +
                              "    <input type='hidden' name='comment[parent_id]' value='" + comment_id + "'/>" +
                              "    <input type='hidden' name='comment[level]' value='" + (level + 1) + "'/>" +
-                             "    <textarea class='comment_text_area' rows='20' cols='40' name='comment[content]' onkeypress='return imposeMaxLength(this, 500);'></textarea>" +
-                             "    <input class='comment_submit' type='submit' value='Submit' name='commit'/> | <a href='#' onclick='reply_to("+ comment_id + ",null,null);return false;' class='comment_cancel'>Cancel</a>" +
+                             "    <textarea id='comment_reply_text_area_"+comment_id+"' class='comment_text_area' rows='20' cols='40' name='comment[content]' onkeypress='return imposeMaxLength(this, 500);'></textarea>" +
+                             "    <input class='comment_submit' type='submit' value='Submit' name='commit' onclick=\"$('comment_reply_progress_"+ comment_id +"').show();return true;\"/> | <a href='#' onclick='reply_to("+ comment_id + ",null,null);return false;' class='comment_cancel'>Cancel</a><span id='comment_reply_progress_"+ comment_id +"' class='ajax_progress' style='display:none;'><img src='/images/progress_sm.gif' alt=''/> submitting reply...</span>" +
                              "  </form>" +
                              "</div>";
                 child_div = document.createElement("div");
                 child_div.innerHTML = child_html;
                 parent_div.parentNode.insertBefore(child_div, parent_div.nextSibling);
+                $('comment_reply_text_area_' + comment_id).focus();
               }
             }
         </script>
@@ -226,7 +227,7 @@
                     <div class="invite_email_description">
                         <strong>Enter emails in a comma delimited list </strong><br/>
                         example:  bob@somewhere.com, lindsay@anotherplace.org, chad@nowhere.com<br/>
-                        Note that we do not keep the emails in anyway and only use them this one time to send an invitation.
+                        Note that we do not keep the emails and only use them this one time to send an invitation.
                     </div>
                     <%= text_area_tag :emails, nil, :class => "invite_email_text_area" %>
                     <div class="invite_email_description">
@@ -243,9 +244,9 @@
             <div class="reply_to">
                 Your reply to <%= image_tag(gravatar_url_for(@topic.user), :width => 15, :height => 15) %> <%= @topic.user.login %>
             </div>
-            <% form_for([@topic,@comment]) do |f| %>
+            <% form_remote_for([@topic,@comment]) do |f| %>
               <%= f.text_area :content, :class => "comment_text_area", :onkeypress => "return imposeMaxLength(this, 500);" %>
-              <%= f.submit "Submit", :class => "comment_submit" %>
+              <%= submit_tag "Submit", :class => "comment_submit", :onclick => "$('topic_reply_progress').show();return true;" %> <span id="topic_reply_progress" class="ajax_progress" style="display:none;"><img src="/images/progress_sm.gif" alt=""/> submitting reply...</span>
             <% end %>
         </div>
 

@@ -1,0 +1,25 @@
+<% comment = @comment %>
+<div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;width:<%= 65 - (2 * (comment.level.to_i + 1)) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
+    <%= link_to(image_tag(gravatar_url_for(comment.user), :width => 35, :height => 35, :class => 'comment_owner_pic'),comment.user, :class => 'comment_owner') %>
+    <div class="comment_actions">
+        <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user), :width => 15, :height => 15)} #{comment.user.login}')", :class => "comment_reply_link" %>
+        <br/>
+        <% if comment.user == current_user %>
+          <a id="comment_edit_link_<%= comment.id %>" onclick="$('comment_content_<%= comment.id %>').hide();$('comment_form_<%= comment.id %>').show();$('comment_content_edit_<%= comment.id %>').focus();return false;" href="#" style="display:none;" class="comment_reply_link">Edit</a>
+        <% else %>
+          <span id="comment_edit_link_<%= comment.id %>" class="inactive_link" style="display:none;">Edit</span>
+        <% end %>
+    </div>
+    <div id="comment_content_<%= comment.id %>" class="comment_content">
+      <%= link_to "#{comment.user.login}:", comment.user, :class => "comment_owner_link" %> <%= auto_jabber_link comment.content %>
+    </div>
+    <div id="comment_form_<%= comment.id %>" class="comment_content" style="display:none;">
+      <% remote_form_for([@topic,comment]) do |f| %>
+        <%= f.text_area :content, :value => comment.content, :id => "comment_content_edit_#{comment.id}", :class => "comment_content_edit_area" %><br/>
+        <a id="comment_edit_cancel_link_<%= comment.id %>" onclick="$('comment_form_<%= comment.id %>').hide();$('comment_content_<%= comment.id %>').show();return false;" href="#" style="text-decoration:none;color:#6090AA;font-size: 14px;">Cancel</a> | <%= f.submit "Update" %>
+      <% end %>
+    </div>
+    <div class="comment_time">
+        <%= time_ago_in_words(comment.created_at) %> ago
+    </div>
+</div>

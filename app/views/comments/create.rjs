@@ -1,0 +1,7 @@
+if @comment.parent.blank?  # topic reply
+  page << "$('comment_content').value = '';"
+  page['topic_reply_progress'].hide
+  page.insert_html(:after, 'topic_reply', :partial => 'comment')
+else # comment reply
+  page.replace("comment_reply_#{@comment.parent.id}", :partial => 'comment')
+end

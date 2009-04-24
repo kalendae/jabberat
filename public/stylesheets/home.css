@@ -336,6 +336,10 @@ span#invite_submit_progress{
   font-size: 12px;
   margin-left: 20px;
 }
+.ajax_progress {
+  font-size: 12px;
+  margin-left: 20px;
+}
 div#right_panel {
   float: right;
   width: 25%;
