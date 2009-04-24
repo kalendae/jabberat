@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def auto_jabber_link(text)
-    auto_link(text) do |t|
+    auto_link(text, :all, :target => '_blank') do |t|
       slash_parts = t.split('//').last.split('/')
       if slash_parts.size > 1
         slash_parts.first + "/..."

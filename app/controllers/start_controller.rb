@@ -1,6 +1,8 @@
 class StartController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
+
+  before_filter :login_required, :only => [:email_invites]
   
   def index
     @topic = Topic.new
