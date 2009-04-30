@@ -74,7 +74,7 @@
     <% form_tag '', :method => 'get' do -%>
         <div id="main_deal">
             <div id="search_inner">
-              <label class="search_prompt">Whaddya Wanna Talk About?</label><br/>
+              <label class="search_prompt">Start a Conversation</label><br/>
               <%= text_area_tag :t, @content, :maxlength => 500, :class => "search_box" %><br/>
               <%= submit_tag "Go", :name => 'c', :class => 'search_go' %>
               <div class="prompt_help">Enter news, ask a question, post a link, or write whatever</div>
@@ -242,7 +242,7 @@
         </div>
         <div id="topic_reply">
             <div class="reply_to">
-                Your reply to <%= image_tag(gravatar_url_for(@topic.user), :width => 15, :height => 15) %> <%= @topic.user.login %>
+                Reply to this conversation:
             </div>
             <% form_remote_for([@topic,@comment]) do |f| %>
               <%= f.text_area :content, :class => "comment_text_area", :onkeypress => "return imposeMaxLength(this, 500);" %>
