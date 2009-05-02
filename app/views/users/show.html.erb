@@ -87,6 +87,10 @@
             text-align: right;
             padding-right: 20px;
             }
+    .image_explanation {
+            font-size: 16px;
+            color: #333;
+            }
 
 </style>
 
@@ -109,7 +113,7 @@
                     <% if @user == current_user %>
                         <div id="gravatar_link">
                             <%= link_to "Change/Setup", "http://en.gravatar.com/" %> Gravatar or<br/>
-                            enter image url for your avatar (we like big squares):
+                            <span class="image_explanation">Paste a direct image link here from Flickr or other public source:</span>
                             <div id="avatar_link">
                                 <form action="update_avatar_url/<%= current_user.id %>">
                                     <input type="text" id="user_avatar_url" name="user[avatar_url]"/>
