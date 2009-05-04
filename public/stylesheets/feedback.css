@@ -36,7 +36,7 @@
 a#fdbk_tab {
   top: 10%;
   right: 10%;
-  left: 0;
+  left: 90%;
   width: 42px;
   height: 102px;
   color: #FFF;
@@ -68,7 +68,7 @@ a.fdbk_tab_bottom {
   top: 10% !important;
   right: 10% !important;
   bottom: 0 !important;
-  left: 20% !important;
+  left: 90% !important;
   height: 38px !important;
   width: 102px !important;
   background-position: 0 -102px !important;
