@@ -34,7 +34,8 @@
       background: transparent;
 }
 a#fdbk_tab {
-  top: 25%;
+  top: 10%;
+  right: 10%;
   left: 0;
   width: 42px;
   height: 102px;
@@ -64,7 +65,8 @@ a.fdbk_tab_right:hover {
     margin-left: auto !important;
 }
 a.fdbk_tab_bottom {
-  top: auto!important;
+  top: 10% !important;
+  right: 10% !important;
   bottom: 0 !important;
   left: 20% !important;
   height: 38px !important;
@@ -72,6 +74,7 @@ a.fdbk_tab_bottom {
   background-position: 0 -102px !important;
   margin-bottom: -7px !important;
   margin-left: auto !important;
+
 }
 a.fdbk_tab_bottom:hover {
     margin-bottom: -4px !important;
