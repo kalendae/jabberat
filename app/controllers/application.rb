@@ -27,7 +27,14 @@ class ApplicationController < ActionController::Base
         cookies[:ta] = {:value => uid, :expires => 1.year.from_now}
         cv = uid
       end
-      track = Track.new(:cookie => cv, :user_id => current_user.blank? ? nil : current_user.id, :path => request.path, :parameters => request.parameters.blank? ? nil : request.parameters.inspect)
+      nopassword_parameters = request.parameters.blank? ? {} : request.parameters
+      nopassword_parameters.delete :password
+      nopassword_parameters.delete :password_confirmation
+      if nopassword_parameters.has_key? :user
+        nopassword_parameters[:user].delete :password
+        nopassword_parameters[:user].delete :password_confirmation
+      end
+      track = Track.new(:cookie => cv, :user_id => current_user.blank? ? nil : current_user.id, :path => request.path, :parameters => nopassword_parameters.inspect)
       track.save
     end
   end
