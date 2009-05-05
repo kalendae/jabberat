@@ -1,0 +1,38 @@
+<style type="text/css">
+    body {
+            width: 3000px !important;
+            }
+</style>
+<h1>Listing tracks</h1>
+
+<form action="">
+    Cookie Filter:
+    <input type="text" name="c" value="<%= @cookie %>"/>
+    <input type="submit"/>
+</form>
+
+<%= will_paginate @tracks %>
+
+<table>
+  <tr>
+    <th>Created At</th>
+    <th>Cookie</th>
+    <th>User</th>
+    <th>Path</th>
+    <th>Parameters</th>
+  </tr>
+
+<% for track in @tracks %>
+  <tr>
+    <td><%=h Time.zone.at(track.created_at.to_i) %></td>
+    <td><strong><%=h track.cookie %></strong></td>
+    <td><%=h track.user_id %></td>
+    <td><%=h track.path %></td>
+    <td><%=h track.parameters %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate @tracks %>

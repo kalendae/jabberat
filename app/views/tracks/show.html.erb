@@ -1,0 +1,18 @@
+<p>
+  <b>Cookie:</b>
+  <%=h @track.cookie %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @track.user_id %>
+</p>
+
+<p>
+  <b>Path:</b>
+  <%=h @track.path %>
+</p>
+
+
+<%= link_to 'Edit', edit_track_path(@track) %> |
+<%= link_to 'Back', tracks_path %>

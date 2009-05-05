@@ -1,5 +1,6 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+require 'uuid'
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
@@ -14,6 +15,22 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
   include AuthenticatedSystem
+
+  before_filter :cookie_and_track
+
+  def cookie_and_track
+    # check for existence of cookie, drop cookie if doesn't exist
+    unless params[:controller] == 'tracks'
+      cv = cookies[:ta]
+      if cookies[:ta].blank?
+        uid = uuid
+        cookies[:ta] = {:value => uid, :expires => 1.year.from_now}
+        cv = uid
+      end
+      track = Track.new(:cookie => cv, :user_id => current_user.blank? ? nil : current_user.id, :path => request.path, :parameters => request.parameters.blank? ? nil : request.parameters.inspect)
+      track.save
+    end
+  end
   
   def super_user?
     current_user and (current_user.login == 'tao' or current_user.login == 'kalendae' or current_user.login == 'milener')
@@ -33,5 +50,9 @@ class ApplicationController < ActionController::Base
       end
   end
 
-  
+  def uuid
+    @uuid = UUID.new unless @uuid
+    @uuid.generate
+  end
+
 end

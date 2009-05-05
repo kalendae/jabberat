@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  cookie: MyString
+  user_id: 1
+  path: MyString
+
+two:
+  cookie: MyString
+  user_id: 1
+  path: MyString

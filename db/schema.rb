@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090422191651) do
+ActiveRecord::Schema.define(:version => 20090505010322) do
 
   create_table "comments", :force => true do |t|
     t.string   "content",    :limit => 512
@@ -40,6 +40,19 @@ ActiveRecord::Schema.define(:version => 20090422191651) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tracks", :force => true do |t|
+    t.string   "cookie"
+    t.integer  "user_id"
+    t.string   "path"
+    t.string   "parameters", :limit => 1024
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tracks", ["cookie"], :name => "index_tracks_on_cookie"
+  add_index "tracks", ["created_at"], :name => "index_tracks_on_created_at"
+  add_index "tracks", ["user_id"], :name => "index_tracks_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40

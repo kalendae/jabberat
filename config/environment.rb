@@ -76,3 +76,4 @@ Rails::Initializer.run do |config|
 end
 
 require 'acts_as_ferret'
+require 'will_paginate'
