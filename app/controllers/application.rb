@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
         cookies[:ta] = {:value => uid, :expires => 1.year.from_now}
         cv = uid
       end
-      nopassword_parameters = request.parameters.blank? ? {} : request.parameters
+      nopassword_parameters = request.parameters.blank? ? {} : request.parameters.clone
       nopassword_parameters.delete :password
       nopassword_parameters.delete :password_confirmation
       if nopassword_parameters.has_key? :user
