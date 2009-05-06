@@ -101,4 +101,9 @@ div#ajax_notifier {
   font-size: 14px;
   font-weight: bold;
   color: #aaaa77;
+  z-index: 100;
+}
+
+div.fieldWithErrors input {
+  background-color: #ff9080;
 }

@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
       nopassword_parameters.delete :password
       nopassword_parameters.delete :password_confirmation
       if nopassword_parameters.has_key? :user
+        nopassword_parameters[:user] = request.parameters[:user].clone
         nopassword_parameters[:user].delete :password
         nopassword_parameters[:user].delete :password_confirmation
       end

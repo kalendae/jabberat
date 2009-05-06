@@ -1,0 +1,52 @@
+<div id="panel" style="text-align: left;">
+
+  <% if flash[:notice] -%>
+      <p class="notice"><%= flash[:notice] %></p>
+  <% end -%>
+  <% if flash[:error] -%>
+      <p class="error"><%= flash[:error] %></p>
+  <% end -%>
+
+  <div id="loginform" style="border: solid 1px #aaa;width: 220px;padding-bottom: 10px;border-right: none;float: left;height: 338px;">
+
+    <h4 style="margin: 20px 33px 10px;">Login</h4>
+
+    <% form_tag session_path do -%>
+    <%= label_tag 'login', "Username", :style => "font-size:12px;margin-left:33px;" %>
+    <div><%= text_field_tag 'login', @login, :style => "border:solid 1px #999;margin-left:33px;margin-top:5px;margin-bottom:15px;width:150px;" %></div>
+
+    <%= label_tag 'password', 'Password', :style => "font-size:12px;margin-left:33px;"  %>
+    <div><%= password_field_tag 'password', nil, :style => "border:solid 1px #999;margin-left:33px;margin-top:5px;margin-bottom:15px;width:150px;" %></div>
+
+    <div><%= label_tag 'remember_me', 'Remember me', :style => "font-size:12px;margin-left:33px;"  %>
+    <%= check_box_tag 'remember_me', '1', @remember_me %></div>
+
+    <%= submit_tag ' Log in ', :style => "border: solid 1px #999;margin-left:123px;margin-top:15px;" %>
+    <% end -%>
+
+  </div>
+  <div id="signup" style="border: solid 1px #aaa;border-left: solid 1px #eee;width: 220px;padding-bottom: 10px;float: left;height: 338px;">
+
+      <h4 style="margin: 20px 33px 10px;">or Signup</h4>
+
+      <% @user.password = @user.password_confirmation = nil %>
+
+      <% form_for :user, :url => users_path do |f| -%>
+      <%= label_tag 'login', "Username", :style => "font-size:12px;margin-left:33px;"  %>
+      <div><%= f.text_field :login, :style => "border:solid 1px #999;margin-left:33px;margin-top:5px;margin-bottom:15px;width:150px;" %></div>
+
+      <%= label_tag 'email', 'Email', :style => "font-size:12px;margin-left:33px;"  %>
+      <div><%= f.text_field :email, :style => "border:solid 1px #999;margin-left:33px;margin-top:5px;margin-bottom:15px;width:150px;" %></div>
+
+      <%= label_tag 'password', 'Password', :style => "font-size:12px;margin-left:33px;"  %>
+      <div><%= f.password_field :password, :style => "border:solid 1px #999;margin-left:33px;margin-top:5px;margin-bottom:15px;width:150px;" %></div>
+
+      <%= label_tag 'password_confirmation', 'Confirm Password', :style => "font-size:12px;margin-left:33px;"  %>
+      <div><%= f.password_field :password_confirmation, :style => "border:solid 1px #999;margin-left:33px;margin-top:5px;margin-bottom:15px;width:150px;" %></div>
+
+      <%= submit_tag 'Sign up', :style => "border: solid 1px #999;margin-left:123px;margin-top:15px;" %>
+      <% end -%>
+
+  </div>
+
+</div>

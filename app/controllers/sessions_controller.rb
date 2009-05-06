@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
+    @user = User.new
     respond_to do |format|
       format.html
       format.js
@@ -28,6 +29,7 @@ class SessionsController < ApplicationController
       note_failed_signin
       @login       = params[:login]
       @remember_me = params[:remember_me]
+      @user = User.new
       render :action => 'new'
     end
   end
