@@ -1,3 +1,2 @@
-page.replace_html 'ajax_notifier', :partial => 'both'
-page['ajax_notifier'].show
-page << "$('ajax_notifier').style.width = '450px';"
+page.replace_html 'login_ajax_panel', :partial => 'both'
+page['login_ajax_panel'].show

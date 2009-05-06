@@ -103,6 +103,17 @@ div#ajax_notifier {
   color: #aaaa77;
   z-index: 100;
 }
+div#login_ajax_panel {
+  position: absolute;
+  width: 450px;
+  height: 338px;
+  top: 50%;
+  left: 50%;
+  margin-left: -225px;
+  margin-top: -169px;
+  background-color: #fff;
+  z-index: 100;
+}
 
 div.fieldWithErrors input {
   background-color: #ff9080;
