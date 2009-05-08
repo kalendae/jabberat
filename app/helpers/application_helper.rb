@@ -6,9 +6,9 @@ module ApplicationHelper
   end
 
   def gravatar_url_for(user, size_class, options = {})
-    if user.photo_file_name
+    if !user.photo_file_name.blank?
       user.photo.url(size_class)
-    elsif user.avatar_url
+    elsif !user.avatar_url.blank?
       user.avatar_url
     else
       if (ENV) and (ENV['HOSTNAME']) and (ENV['HOSTNAME'].starts_with? 'vmcentos')
