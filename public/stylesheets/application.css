@@ -27,9 +27,14 @@ div#header {
   background-color: #D9E7FF;
   vertical-align: middle;
 }
+div#tiny_logo {
+  float: left;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-top: 1px;
+}
 div#top_menu {
   float: left;
-  margin-left: 15px;
   margin-top: 3px;
 }
 div#header a {

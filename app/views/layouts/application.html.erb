@@ -26,8 +26,11 @@
   </div>
   <div id="above_header_space"> </div>
   <div id="header" align="right">
+    <div id="tiny_logo">
+      <img src="/images/tiny_logo.png" alt=""/>        
+    </div>
     <div id="top_menu">
-        <%= link_to "Home", root_path %> | <%= link_to "People", users_path %>
+         | <%= link_to "Home", root_path %> | <%= link_to "People", users_path %>
     </div>
     <nobr>
         <% if current_user %>
