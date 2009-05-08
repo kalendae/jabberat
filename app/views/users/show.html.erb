@@ -98,7 +98,14 @@
             font-size: 16px;
             color: #333;
             }
-
+    .button_link {
+      border: solid 1px #3355BB;
+      background-color: #88aafe;
+      color: white;
+      padding: 2px 5px;
+      font-size: 11px;
+      text-decoration: none;
+    }
 </style>
 
 <div id="page">
@@ -134,6 +141,13 @@
             </td>
             <td style="width: 300px;">
               <div id="about_me">
+                  <% if current_user and current_user == @user %>
+
+                  <% elsif current_user and current_user.following?(@user) %>
+                    <p><%= link_to "Unfollow", {:controller => :users, :action => :unfollow, :id => @user.id}, :class => "button_link unfollow" %></p>
+                  <% else %>
+                    <p><%= link_to "Follow", {:controller => :users, :action => :follow, :id => @user.id}, :class => "button_link" %></p>
+                  <% end %>
                   <div class="user_info">
                       Joined: <%= time_ago_in_words(@user.created_at) %> ago.
                   </div>
