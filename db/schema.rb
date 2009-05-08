@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090505010322) do
+ActiveRecord::Schema.define(:version => 20090508184137) do
 
   create_table "comments", :force => true do |t|
     t.string   "content",    :limit => 512
@@ -69,6 +69,9 @@ ActiveRecord::Schema.define(:version => 20090505010322) do
     t.string   "state",                                    :default => "passive"
     t.datetime "deleted_at"
     t.string   "avatar_url"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

@@ -27,14 +27,14 @@
   <div id="above_header_space"> </div>
   <div id="header" align="right">
     <div id="tiny_logo">
-      <img src="/images/tiny_logo.png" alt=""/>        
+      <a href="/"><img src="/images/tiny_logo.png" alt="" style="border:none;"/></a>        
     </div>
     <div id="top_menu">
          | <%= link_to "Home", root_path %> | <%= link_to "People", users_path %>
     </div>
     <nobr>
         <% if current_user %>
-          Hello <%= image_tag(gravatar_url_for(current_user), :width => 16, :height => 16)%> <%= link_to current_user.login.titleize, current_user %> |
+          Hello <%= image_tag(gravatar_url_for(current_user,:tiny), :width => 15, :height => 15)%> <%= link_to current_user.login.titleize, current_user %> |
           <%= link_to "Logout", logout_path  %>
         <% else %>
           <%= link_to "Login", login_path  %> | <%= link_to "Signup", signup_path  %>   

@@ -57,7 +57,21 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
- 
+
+  def update
+    current_user.photo = params[:user][:photo]
+    respond_to do |format|
+      if current_user.save
+        flash[:notice] = 'Profile successfully updated.'
+        format.html { redirect_to(current_user) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => current_user }
+        format.xml  { render :xml => current_user.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
   def create
     logout_keeping_session!
     @user = User.new(params[:user])

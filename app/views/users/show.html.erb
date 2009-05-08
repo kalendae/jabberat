@@ -7,12 +7,19 @@
                     width: 90%;
                     vertical-align: top;
                     }
+            input[type=file] {
+                    width: 170px;
+                    font-size: 11px;
+                    height: 20px;
+                    border: solid 1px #999;
+                    }
             input[type=text], input[type=password] {
                     border: solid 1px #999;
                     margin-top: 5px;
                     }
             input[type=submit] {
                     border: solid 1px #999;
+                    padding: 0px;
                     margin-top: 5px;
                     }
             label {
@@ -109,16 +116,17 @@
             <td style="width:230px">
                 <div id="profile_box">
                     <div id="login_name"><%= @user.login %></div>
-                    <%= image_tag(gravatar_url_for(@user), :class => "profile_pic") %>
+                    <%= image_tag(gravatar_url_for(@user,:full), :class => "profile_pic") %>
                     <% if @user == current_user %>
                         <div id="gravatar_link">
                             <%= link_to "Change/Setup", "http://en.gravatar.com/" %> Gravatar or<br/>
-                            <span class="image_explanation">Paste a direct image link here from Flickr or other public source:</span>
+                            <span class="image_explanation">Upload a new profile picture:</span>
                             <div id="avatar_link">
-                                <form action="update_avatar_url/<%= current_user.id %>">
-                                    <input type="text" id="user_avatar_url" name="user[avatar_url]"/>
-                                    <input type="submit" value="Submit"/>
-                                </form>
+                                <% form_for current_user, :html => { :multipart => true } do |f| %>
+                                  <%= f.hidden_field :authenticity_token, :value => form_authenticity_token %>
+                                  <%= f.file_field :photo, :value => 'Browse' %>
+                                  <%= submit_tag 'Go' %>
+                                <% end %>
                             </div>
                         </div>
                     <% end %>
@@ -144,7 +152,7 @@
                     </div>
                     <div class="follow_icons">
                         <% @user.all_following.each do |u| %>
-                          <%= link_to(image_tag(gravatar_url_for(u), :class => 'follow_pic'),u, :class => 'follow_pic_link') %>
+                          <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
                         <% end %>
                     </div>
                     <div class="summary_header">
@@ -152,7 +160,7 @@
                     </div>
                     <div class="follow_icons">
                         <% @user.followers.each do |u| %>
-                          <%= link_to(image_tag(gravatar_url_for(u), :class => 'follow_pic'),u, :class => 'follow_pic_link') %>
+                          <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
                         <% end %>
                     </div>
                 </div>

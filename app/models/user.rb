@@ -1,4 +1,5 @@
 require 'digest/sha1'
+require 'paperclip'
 
 class User < ActiveRecord::Base
   include Authentication
@@ -9,6 +10,17 @@ class User < ActiveRecord::Base
   acts_as_follower
   acts_as_followable
 
+  # Paperclip
+  has_attached_file :photo,
+          :styles => {
+                  :tiny => "15x15#",
+                  :small => "20x20#",
+                  :thumb => "30x30#",
+                  :owner => "60x60#",
+                  :large => "100x100#",
+                  :full => "200x200#"
+                  }
+  
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login

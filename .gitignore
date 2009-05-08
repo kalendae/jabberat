@@ -4,3 +4,5 @@ log/*.log
 log/*.pid
 tmp/**/*
 index
+public/photos
+

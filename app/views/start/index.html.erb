@@ -10,7 +10,7 @@
       </div>
       <% @hot_topics.each do |topic| %>
           <div class="topic_in_list">
-              <%= link_to(image_tag(gravatar_url_for(topic.user), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
+              <%= link_to(image_tag(gravatar_url_for(topic.user,:thumb), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
               <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
                 <div class="topic_content_in_list"><%= topic.content %></div>
               </a>
@@ -91,7 +91,7 @@
           <div id="existing_suggestions">
               <% @topics.each do |topic| %>
                   <div class="topic_in_list">
-                      <%= link_to(image_tag(gravatar_url_for(topic.user), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
+                      <%= link_to(image_tag(gravatar_url_for(topic.user,:thumb), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
                       <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
                         <div class="topic_content_in_list"><%= topic.content %></div>
                       </a>
@@ -135,7 +135,7 @@
         </div>
         <div class="user_list">
           <% User.all.reverse.each do |u| %>
-            <%= link_to(image_tag(gravatar_url_for(u), :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
+            <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
           <% end %>
         </div>
         <% if current_user %>
@@ -144,7 +144,7 @@
           </div>
           <div class="user_list">
             <% current_user.all_following.each do |u| %>
-              <%= link_to(image_tag(gravatar_url_for(u), :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
+              <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
             <% end %>
           </div>
           <div class="right_panel_header">
@@ -152,7 +152,7 @@
           </div>
           <div class="user_list">
             <% current_user.followers.each do |u| %>
-              <%= link_to(image_tag(gravatar_url_for(u), :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
+              <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
             <% end %>
           </div>
         <% else %>
@@ -193,7 +193,7 @@
         </script>
 
         <div id="the_topic" class="back_default" onmouseover="this.className='back_moused_over';$('topic_edit_link').style.display='';" onmouseout="this.className='back_default';$('topic_edit_link').style.display='none';">
-            <%= link_to(image_tag(gravatar_url_for(@topic.user), :width => 60, :height => 60, :class => 'owner_pic', :alt => ''),@topic.user, :class => 'topic_owner') %>
+            <%= link_to(image_tag(gravatar_url_for(@topic.user,:owner), :width => 60, :height => 60, :class => 'owner_pic', :alt => ''),@topic.user, :class => 'topic_owner') %>
             <div class="topic_owner_name">
                 <%= link_to "#{@topic.user.login}:", @topic.user, :class => 'topic_owner_login' %>
             </div>
@@ -254,9 +254,9 @@
 
         <% @comments.each do |comment| %>
           <div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;width:<%= 65 - (2 * (comment.level.to_i + 1)) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
-              <%= link_to(image_tag(gravatar_url_for(comment.user), :width => 35, :height => 35, :class => 'comment_owner_pic', :alt => ''),comment.user, :class => 'comment_owner') %>
+              <%= link_to(image_tag(gravatar_url_for(comment.user,:thumb), :width => 30, :height => 30, :class => 'comment_owner_pic', :alt => ''),comment.user, :class => 'comment_owner') %>
               <div class="comment_actions">
-                  <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user), :width => 15, :height => 15, :alt => '')} #{comment.user.login}')", :class => "comment_reply_link" %>
+                  <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user,:tiny), :width => 15, :height => 15, :alt => '')} #{comment.user.login}')", :class => "comment_reply_link" %>
                   <br/>
                   <% if comment.user == current_user %>
                     <a id="comment_edit_link_<%= comment.id %>" onclick="$('comment_content_<%= comment.id %>').hide();$('comment_form_<%= comment.id %>').show();$('comment_content_edit_<%= comment.id %>').focus();return false;" href="#" style="display:none;" class="comment_reply_link">Edit</a>
