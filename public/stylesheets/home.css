@@ -79,6 +79,7 @@ div#exist_prompt {
 }
 
 div#topic_area {
+  position: relative;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -364,4 +365,21 @@ div#right_panel {
   min-height:38px;
   height:auto !important;
   height:38px;
+}
+div#about_box {
+  position: absolute;
+  width: 25%;
+  right: 0px;
+  top: -138px;
+  margin-top: 30px;
+  text-align: left;
+  background-color: #def;
+}
+div#about_text{
+  margin: 10px 15px;
+  color: #149;
+  font-size: 13px;
+  overflow: hidden;
+  height: 50px;
+  z-index: -1;
 }

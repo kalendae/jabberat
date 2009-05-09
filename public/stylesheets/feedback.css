@@ -34,8 +34,8 @@
       background: transparent;
 }
 a#fdbk_tab {
-  top: 10%;
-  right: 10%;
+  top: 38px;
+  right: 10px;
   left: 90%;
   width: 42px;
   height: 102px;
@@ -65,8 +65,8 @@ a.fdbk_tab_right:hover {
     margin-left: auto !important;
 }
 a.fdbk_tab_bottom {
-  top: 10% !important;
-  right: 10% !important;
+  top: 38px !important;
+  right: 10px !important;
   bottom: 0 !important;
   left: 90% !important;
   height: 38px !important;
