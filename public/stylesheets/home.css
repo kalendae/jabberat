@@ -346,6 +346,8 @@ div#right_panel {
   width: 25%;
   background-color: #f0f0f5;
   text-align: left;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 .right_panel_header {
   margin: 15px;
@@ -374,6 +376,8 @@ div#about_box {
   margin-top: 30px;
   text-align: left;
   background-color: #def;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 div#about_text{
   margin: 10px 15px;
