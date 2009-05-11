@@ -21,4 +21,19 @@ class Topic < ActiveRecord::Base
     self
   end
 
+  def all_users_before_comment comment
+    user_hash = {}
+    comments.each do |c|
+      if c.created_at < comment.created_at
+        if user_hash[c.user].blank?
+          user_hash[c.user] = true
+        end
+      end
+    end
+    if user_hash[self.user].blank?
+      user_hash[self.user] = true
+    end
+    user_hash.keys
+  end
+
 end

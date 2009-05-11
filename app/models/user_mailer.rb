@@ -21,6 +21,16 @@ class UserMailer < ActionMailer::Base
     @body[:content] = content
     @content = content
   end
+
+  def notify(user,users,topic,comment)
+    @bcc = "#{users.collect{|u| u.email}.join(",")}"
+    @from = "hello@jabberAt.com"
+    @subject = "#{user.login} replied to a Tawk conversation you were part of"
+    @sent_on = Time.now
+    @topic = topic
+    @user = user
+    @comment = comment
+  end
   
   protected
     def setup_email(user)

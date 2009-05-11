@@ -56,6 +56,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        # a new reply needs to be queued for async stuff like emails out to people
+        qi = QueueItem.new(:queue_type => 'new_comment', :content => @comment.id.to_s)
+        qi.save
         format.html { redirect_to(:controller => :start, :action => :index, :id => @topic) }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
         format.js

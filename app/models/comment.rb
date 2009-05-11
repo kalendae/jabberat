@@ -33,4 +33,14 @@ class Comment < ActiveRecord::Base
     p
   end
 
+  def find_all_past_users_in_topic
+    users = topic.all_users_before_comment self
+    users.delete user
+    users
+  end
+
+  def notify_all_past_users_in_topic
+    UserMailer.deliver_notify(user,find_all_past_users_in_topic,topic,self)
+  end
+
 end
