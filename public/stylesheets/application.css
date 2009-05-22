@@ -1,6 +1,6 @@
 body {
   font-family: arial, helvetica, sans-serif;
-  background-color: #070752;
+  background-color: #1b1bcc;
   background-image: url('/images/blueback.jpg');
   background-repeat: no-repeat;
   margin: 0px;
@@ -8,12 +8,24 @@ body {
 }
 div#page_content {
   background-color: #fff;
-  margin: 20px 5%;
   border-top: solid 1px #000;
   border-left: solid 1px #000;
-  border-bottom: solid 5px #000;
-  border-right: solid 5px #000;
+  border-bottom: solid 1px #050544;
+  border-right: solid 1px #050544;
   position: relative;
+}
+div#shadow_1 {
+  border-right: solid 2px #070766;
+  border-bottom: solid 2px #070766;
+}
+div#shadow_2 {
+  border-right: solid 1px #121299;
+  border-bottom: solid 1px #121299;
+}
+div#shadow_3 {
+  border-right: solid 1px #1919bb;
+  border-bottom: solid 1px #1919bb;
+  margin: 20px 5%;
 }
 p {
   margin: 16px 0px;
@@ -52,32 +64,6 @@ div#header a {
 }
 nobr {
   margin-right: 15px;
-}
-
-
-div#logo {
-  font-size: 60px;
-  margin: 15px 0px -15px 0px;
-  color: #aaa;
-  font-weight: bold;
-}
-div#pullout {
-  float: left;
-  width: 350px;
-}
-div#topic_space {
-  height: 750px;
-  width: 350px;
-  border: solid 1px #C9D7F1;
-  background-color: #FFF;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 10px;
-}
-
-div#main_space {
-  margin-left: 350px;
-  text-align: center;
 }
 
 .medium_heading {

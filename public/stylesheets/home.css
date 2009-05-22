@@ -1,3 +1,28 @@
+div#logo {
+  font-size: 60px;
+  margin: 15px 0px -15px 0px;
+  color: #aaa;
+  font-weight: bold;
+}
+div#pullout {
+  float: left;
+  width: 350px;
+}
+div#topic_space {
+  height: 750px;
+  width: 350px;
+  border: solid 1px #C9D7F1;
+  background-color: #FFF;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+div#main_space {
+  margin-left: 350px;
+  text-align: center;
+}
+
 textarea#topic_content {
   border: solid 1px #999;
   height: 40px;
