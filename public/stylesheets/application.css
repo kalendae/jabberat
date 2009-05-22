@@ -1,8 +1,19 @@
 body {
   font-family: arial, helvetica, sans-serif;
-  background-color: #FFFFFF;
+  background-color: #070752;
+  background-image: url('/images/blueback.jpg');
+  background-repeat: no-repeat;
   margin: 0px;
   padding: 0px;
+}
+div#page_content {
+  background-color: #fff;
+  margin: 20px 5%;
+  border-top: solid 1px #000;
+  border-left: solid 1px #000;
+  border-bottom: solid 5px #000;
+  border-right: solid 5px #000;
+  position: relative;
 }
 p {
   margin: 16px 0px;
@@ -52,7 +63,6 @@ div#logo {
 }
 div#pullout {
   float: left;
-  height: 800px;
   width: 350px;
 }
 div#topic_space {

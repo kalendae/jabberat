@@ -4,7 +4,7 @@
           color: #888;
   }
   div#users_panel {
-    width: 95%;
+    margin-right: 200px;
     padding: 10px 20px;
   }
   input[type=text], input[type=password] {
@@ -89,7 +89,7 @@
             <div class="user_login"><%= user.login %></div>
           </a>
           <div class="user_info">
-              Joined: <%= time_ago_in_words(user.created_at) %> ago.
+              Joined: <%= time_ago_in_words(user.created_at).gsub('about ','') %> ago.
           </div>
           <div class="user_info">
               Topics: <%= user.topics.count %>
@@ -116,3 +116,6 @@
   </div>
 
 </div>
+
+<div style="clear:left;"> </div>
+<br/><br/>

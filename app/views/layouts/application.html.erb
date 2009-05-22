@@ -6,40 +6,45 @@
   <title><% if @title.blank? %>Tawk - Join the Conversation<% else %><%= @title %><% end %></title>
     <link href="/stylesheets/feedback.css" rel="stylesheet" type="text/css">
     <script src='/javascripts/feedback.js' type='text/javascript'></script>
+</head>
+<body>
+    <div id="page_content">
+        <div id="feedback_tab_container"> </div>
+        <div id="ajax_notifier" style="display:none;">
+            Ajax Notifications
+        </div>
+        <div id="login_ajax_panel" style="display:none;">
+            Login Ajax Panel
+        </div>
+        <div id="above_header_space"> </div>
+        <div id="header" align="right">
+          <div id="tiny_logo">
+            <a href="/"><img src="/images/tiny_logo.png" alt="" style="border:none;"/></a>
+          </div>
+          <div id="top_menu">
+               | <%= link_to "Home", root_path %> | <%= link_to "People", users_path %>
+          </div>
+          <nobr>
+              <% if current_user %>
+                Hello <%= image_tag(gravatar_url_for(current_user,:tiny), :width => 15, :height => 15)%> <%= link_to current_user.login.titleize, current_user %> |
+                <%= link_to "Logout", logout_path  %>
+              <% else %>
+                <%= link_to "Login", login_path  %> | <%= link_to "Signup", signup_path  %>
+              <% end %>
+          </nobr>
+        </div>
+        <div id="below_header_space"> </div>
+        <%= yield %>
+        <div style="clear:left;"> </div>
+    </div>
     <script type="text/javascript" charset="utf-8">
         var tab_options = {}
         tab_options.placement = "bottom";
         // left, right, bottom, hidden
         tab_options.color = "#222";
+        tab_options.container = 'feedback_tab_container';
         // hex (#FF0000) or color (red)
         GSFN.feedback('http://getsatisfaction.com/jabberat/feedback/topics/new?display=overlay&style=idea', tab_options);
     </script>
-</head>
-<body>
-  <div id="ajax_notifier" style="display:none;">
-      Ajax Notifications
-  </div>
-  <div id="login_ajax_panel" style="display:none;">
-      Login Ajax Panel
-  </div>
-  <div id="above_header_space"> </div>
-  <div id="header" align="right">
-    <div id="tiny_logo">
-      <a href="/"><img src="/images/tiny_logo.png" alt="" style="border:none;"/></a>        
-    </div>
-    <div id="top_menu">
-         | <%= link_to "Home", root_path %> | <%= link_to "People", users_path %>
-    </div>
-    <nobr>
-        <% if current_user %>
-          Hello <%= image_tag(gravatar_url_for(current_user,:tiny), :width => 15, :height => 15)%> <%= link_to current_user.login.titleize, current_user %> |
-          <%= link_to "Logout", logout_path  %>
-        <% else %>
-          <%= link_to "Login", login_path  %> | <%= link_to "Signup", signup_path  %>   
-        <% end %>
-    </nobr>
-  </div>
-  <div id="below_header_space"> </div>
-  <%= yield %>
 </body>
 </html>
