@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   before_filter :get_topic
-  before_filter :login_required, :only => [:create]
+  before_filter :login_required, :only => [:create, :update]
 
   def get_topic
     @topic = Topic.find params[:topic_id]
@@ -16,33 +16,6 @@ class CommentsController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @comments }
     end
-  end
-
-  # GET /comments/1
-  # GET /comments/1.xml
-  def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @comment }
-    end
-  end
-
-  # GET /comments/new
-  # GET /comments/new.xml
-  def new
-    @comment = Comment.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @comment }
-    end
-  end
-
-  # GET /comments/1/edit
-  def edit
-    @comment = Comment.find(params[:id])
   end
 
   # POST /comments
@@ -75,8 +48,12 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
 
+    properly_owned = (current_user == @comment.user)
+
+    flash[:error] = "Must be author of a comment to update it." unless properly_owned
+
     respond_to do |format|
-      if @comment.update_attributes(params[:comment])
+      if properly_owned and @comment.update_attributes(params[:comment])
         flash[:notice] = 'Comment was successfully updated.'
         format.html { redirect_to(@comment) }
         format.xml  { head :ok }
@@ -92,8 +69,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.xml
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
+    if super_user?
+      @comment = Comment.find(params[:id])
+      @comment.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to(comments_url) }

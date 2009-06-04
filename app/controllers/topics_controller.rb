@@ -2,46 +2,8 @@ class TopicsController < ApplicationController
 
   include AuthenticatedSystem
 
-  before_filter :login_required, :only => [:create]
+  before_filter :login_required, :only => [:create, :update]
   
-  # GET /topics
-  # GET /topics.xml
-  def index
-    @topics = Topic.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @topics }
-    end
-  end
-
-  # GET /topics/1
-  # GET /topics/1.xml
-  def show
-    @topic = Topic.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @topic }
-    end
-  end
-
-  # GET /topics/new
-  # GET /topics/new.xml
-  def new
-    @topic = Topic.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @topic }
-    end
-  end
-
-  # GET /topics/1/edit
-  def edit
-    @topic = Topic.find(params[:id])
-  end
-
   # POST /topics
   # POST /topics.xml
   def create
@@ -62,8 +24,13 @@ class TopicsController < ApplicationController
   # PUT /topics/1.xml
   def update
     @topic = Topic.find(params[:id])
+
+    properly_owned = (current_user == @topic.user)
+
+    flash[:error] = "Must be author of a topic to update it." unless properly_owned
+
     respond_to do |format|
-      if @topic.update_attributes(params[:topic])
+      if properly_owned and @topic.update_attributes(params[:topic])
         flash[:notice] = 'Topic was successfully updated.'
         format.html { redirect_to(@topic) }
         format.xml  { head :ok }
@@ -79,8 +46,10 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   # DELETE /topics/1.xml
   def destroy
-    @topic = Topic.find(params[:id])
-    @topic.destroy
+    if super_user?
+      @topic = Topic.find(params[:id])
+      @topic.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to(topics_url) }
