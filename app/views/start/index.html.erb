@@ -1,173 +1,193 @@
 <%= stylesheet_link_tag 'home' %>
+<style type="text/css">
+    div#page_content {
+            background-color: #c0c0c8 !important;
+            }
+</style>
+<div id="right_column">
 
-<%# PULLOUT %>
-
-<div id="pullout">
-  <div id="logo"><img src="/images/tawk_logo.png" alt=""/></div>
-  <div id="topic_space">
-      <div class="medium_heading">
-          Hot Tawks
-      </div>
-      <% @hot_topics.each do |topic| %>
-          <div class="topic_in_list">
-              <%= link_to(image_tag(gravatar_url_for(topic.user,:thumb), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
-              <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
-                <div class="topic_content_in_list"><%= topic.content %></div>
-              </a>
-              <div class="topic_info_line">
-                <div class="topic_replies_in_list">
-                    <% if topic.comments.size > 0 %>
-                      <%= topic.comments.count %> replies,
-                    <% else %>
-                      new topic
-                    <% end %>
-                </div>
-                <div class="topic_time_in_list">
-                    &nbsp;updated <%= time_ago_in_words(topic.updated_at) %> ago
-                </div>
-                <div style="clear:left;"> </div>
-              </div>
-          </div>
-      <% end %>
-      <div style="height:10px;"> </div>
-      <div class="medium_heading">
-          Your Current Stuff
-      </div>
-      <% if current_user %>
-        <% @notifications.each do |n| %>
-            <div class="topic_in_list">
-                <a href="<%= url_for(:controller => :start, :action => :index, :id => n.topic) %>" class="topic_content_link_in_list">
-                  <%=  notification_html n %>
-                </a>
-                <div class="topic_info_line"  style="margin-left: 25px;">
-                  <div class="topic_replies_in_list">
-                      <%= notification_explanation_html n %>
-                  </div>
-                  <div class="topic_time_in_list">
-                    &nbsp;<%= time_ago_in_words(n.last_reply.created_at) %> ago
-                  </div>
-                </div>
-                <div style="clear:left;"> </div>
-            </div>
-        <% end %>
-      <% else %>
-        <div class="prompt_login">
-            <%= link_to 'Login', login_path %> to see activities on topics you've created or participated in.
+      <div id="about_box">
+        <div id="about_text">
+          <img src="/images/twitter_text.png" alt="Twitter"/> is messages,<br/>
+          Tawk is conversations.<br/>
+          <hr/>
+          <img src="/images/facebook_text.png" alt="Facebook"/> is friends only,<br/>
+          Tawk is global.<br/>
         </div>
-      <% end %>
+      </div>
+
+      <div id="right_panel">
+          <div class="right_panel_header">
+              Recent Users
+          </div>
+          <div class="user_list">
+            <% User.all.reverse.each do |u| %>
+              <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
+            <% end %>
+          </div>
+          <% if current_user %>
+            <div class="right_panel_header">
+                Following
+            </div>
+            <div class="user_list">
+              <% current_user.all_following.each do |u| %>
+                <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
+              <% end %>
+            </div>
+            <div class="right_panel_header">
+                Followers
+            </div>
+            <div class="user_list">
+              <% current_user.followers.each do |u| %>
+                <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
+              <% end %>
+            </div>
+          <% else %>
+             <div class="right_panel_header">
+               <%=  link_to "Login", login_path %> to see people you are following and followers.
+             </div>
+          <% end %>
+        </div>
+
+        <div id="topic_space">
+            <div id="first_medium_heading" class="medium_heading">
+                Top Tawks
+            </div>
+            <% @hot_topics.each do |topic| %>
+                <div class="topic_in_list">
+                    <%= link_to(image_tag(gravatar_url_for(topic.user,:thumb), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
+                    <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
+                      <div class="topic_content_in_list"><%= topic.content %></div>
+                    </a>
+                    <div class="topic_info_line">
+                      <div class="topic_replies_in_list">
+                          <% if topic.comments.size > 0 %>
+                            <%= topic.comments.count %> replies,
+                          <% else %>
+                            new topic
+                          <% end %>
+                      </div>
+                      <div class="topic_time_in_list">
+                          &nbsp;updated <%= time_ago_in_words(topic.updated_at) %> ago
+                      </div>
+                      <div style="clear:left;"> </div>
+                    </div>
+                </div>
+            <% end %>
+            <div style="height:10px;"> </div>
+            <div class="medium_heading">
+                Your Current Stuff
+            </div>
+            <% if current_user %>
+              <% @notifications.each do |n| %>
+                  <div class="topic_in_list">
+                      <a href="<%= url_for(:controller => :start, :action => :index, :id => n.topic) %>" class="topic_content_link_in_list">
+                        <%=  notification_html n %>
+                      </a>
+                      <div class="topic_info_line"  style="margin-left: 25px;">
+                        <div class="topic_replies_in_list">
+                            <%= notification_explanation_html n %>
+                        </div>
+                        <div class="topic_time_in_list">
+                          &nbsp;<%= time_ago_in_words(n.last_reply.created_at) %> ago
+                        </div>
+                      </div>
+                      <div style="clear:left;"> </div>
+                  </div>
+              <% end %>
+            <% else %>
+              <div class="prompt_login">
+                  <%= link_to 'Login', login_path %> to see activities on topics you've created or participated in.
+              </div>
+            <% end %>
+        </div>
+
   </div>
-</div>
+
+
+
 
 <div id="main_space">
 
-    <%# FLASH NOTICE AREA %>
+    <div id="main_panel">
 
-    <% if flash[:notice] -%>
-        <p class="notice"><%= flash[:notice] %></p>
-    <% end -%>
-    <% if flash[:error] -%>
-        <p class="error"><%= flash[:error] %></p>
-    <% end -%>
+      <div id="logo"><img src="/images/tawk_logo.png" alt=""/></div>
 
-    <%# TOPIC SEARCH %>
+      <%# FLASH NOTICE AREA %>
 
-    <% form_tag '', :method => 'get' do -%>
-        <div id="main_deal">
-            <div id="search_inner">
-              <label class="search_prompt">Start a Conversation</label><br/>
-              <%= text_area_tag :t, @content, :maxlength => 500, :class => "search_box" %><br/>
-              <%= submit_tag "Go", :name => 'c', :class => 'search_go' %>
-              <div class="prompt_help">Enter news, ask a question, post a link, or write whatever</div>
+      <div id="flash_area">
+        <% if flash[:notice] -%>
+            <p class="notice"><%= flash[:notice] %></p>
+        <% end -%>
+        <% if flash[:error] -%>
+            <p class="error"><%= flash[:error] %></p>
+        <% end -%>
+      </div>
+
+      <%# TOPIC SEARCH %>
+
+      <% form_tag '', :method => 'get' do -%>
+          <div id="main_deal">
+              <div id="search_inner">
+                <label class="search_prompt">Start a Conversation</label><br/>
+                <%= text_area_tag :t, @content, :maxlength => 500, :class => "search_box" %><br/>
+                <%= submit_tag "Go", :name => 'c', :class => 'search_go' %>
+                <div class="prompt_help">Enter news, ask a question, post a link, or write whatever</div>
+              </div>
+          </div>
+      <% end %>
+
+      <div style="clear:left;"> </div>
+
+      <%# EXISTING TOPIC PROMPTS %>
+
+      <% unless @content.blank? %>
+        <div id="mid_content">
+          <% unless @topics.blank? %>
+            <div id="exist_prompt">Does your topic already exist?</div>
+            <div id="existing_suggestions">
+                <% @topics.each do |topic| %>
+                    <div class="topic_in_list">
+                        <%= link_to(image_tag(gravatar_url_for(topic.user,:thumb), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
+                        <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
+                          <div class="topic_content_in_list"><%= topic.content %></div>
+                        </a>
+                        <div class="topic_info_line">
+                          <div class="topic_replies_in_list">
+                              <% if topic.comments.size > 0 %>
+                                <%= topic.comments.count %> replies,
+                              <% else %>
+                                new topic
+                              <% end %>
+                          </div>
+                          <div class="topic_time_in_list">
+                              &nbsp;updated <%= time_ago_in_words(topic.updated_at) %> ago
+                          </div>
+                          <div style="clear:left;"> </div>
+                        </div>
+                    </div>
+                <% end %>
             </div>
-        </div>
-    <% end %>
-
-    <%# EXISTING TOPIC PROMPTS %>
-
-    <% unless @content.blank? %>
-      <div id="mid_content">
-        <% unless @topics.blank? %>
-          <div id="exist_prompt">Does your topic already exist?</div>
-          <div id="existing_suggestions">
-              <% @topics.each do |topic| %>
-                  <div class="topic_in_list">
-                      <%= link_to(image_tag(gravatar_url_for(topic.user,:thumb), :width => 30, :height => 30, :class => 'owner_pic_in_list', :alt => ''),topic.user, :class => 'topic_owner_in_list') %>
-                      <a href="<%= url_for(:controller => :start, :action => :index, :id => topic) %>" class="topic_content_link_in_list">
-                        <div class="topic_content_in_list"><%= topic.content %></div>
-                      </a>
-                      <div class="topic_info_line">
-                        <div class="topic_replies_in_list">
-                            <% if topic.comments.size > 0 %>
-                              <%= topic.comments.count %> replies,
-                            <% else %>
-                              new topic
-                            <% end %>
-                        </div>
-                        <div class="topic_time_in_list">
-                            &nbsp;updated <%= time_ago_in_words(topic.updated_at) %> ago
-                        </div>
-                        <div style="clear:left;"> </div>
-                      </div>
-                  </div>
+          <% else %>
+            <div id="exist_prompt">No related topics found.</div>
+          <% end %>
+          <div id="creation_prompt">
+              <% form_for(@topic) do |f| %>
+                  <%= f.text_area :content, :value => @content, :onkeypress => "return imposeMaxLength(this, 500);" %><br/>
+                  <%= f.submit "Create a new Topic", :style => "width:138px;margin-left:0px;" %>
               <% end %>
           </div>
-        <% else %>
-          <div id="exist_prompt">No related topics found.</div>
-        <% end %>
-        <div id="creation_prompt">
-            <% form_for(@topic) do |f| %>
-                <%= f.text_area :content, :value => @content, :onkeypress => "return imposeMaxLength(this, 500);" %><br/>
-                <%= f.submit "Create a new Topic", :style => "width:138px;" %>
-            <% end %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+
+    </div>
 
     <%# TOPIC & COMMENTS BODY %>
 
     <div id="topic_area">
 
-      <div id="about_box">
-        <div id="about_text">
-          Tawk is for conversations. Enter anything to start one or reply to one. Invite people to join your conversation. Welcome!
-        </div>
-      </div>
 
 
-      <%# RIGHT HAND PEOPLE PANEL %>
-
-      <div id="right_panel">
-        <div class="right_panel_header">
-            Recent Users
-        </div>
-        <div class="user_list">
-          <% User.all.reverse.each do |u| %>
-            <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
-          <% end %>
-        </div>
-        <% if current_user %>
-          <div class="right_panel_header">
-              Following
-          </div>
-          <div class="user_list">
-            <% current_user.all_following.each do |u| %>
-              <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
-            <% end %>
-          </div>
-          <div class="right_panel_header">
-              Followers
-          </div>
-          <div class="user_list">
-            <% current_user.followers.each do |u| %>
-              <%= link_to(image_tag(gravatar_url_for(u,:thumb), :width=>30, :height=>30, :class => 'follow_pic', :alt => ''),u, :class => 'follow_pic_link') %>
-            <% end %>
-          </div>
-        <% else %>
-           <div class="right_panel_header">
-             <%=  link_to "Login", login_path %> to see people you are following and followers.
-           </div>
-        <% end %>
-      </div>
 
       <% if @content.blank? and !@topic.id.blank? %>
 
@@ -181,7 +201,7 @@
               if (child_div) {
                 child_div.parentNode.removeChild(child_div);
               } else {
-                child_html = "<div id='comment_reply_" + comment_id + "' class='comment_reply' style='margin-left:"+ (2 * (level + 2)) + "%;width:"+ (65 - (2 * (level + 2))) +"%'>" +
+                child_html = "<div id='comment_reply_" + comment_id + "' class='comment_reply' style='margin-left:"+ (2 * (level + 2)) + "%;width:"+ (100 - (2 * (level + 2))) +"%'>" +
                              "  <div class='reply_to'>" + prompt + "</div>" +
                              "  <form class='new_comment' method='post' action='/topics/<%= @topic.id %>/comments' onsubmit=\"new Ajax.Request('/topics/<%= @topic.id %>/comments', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this)}); return false;\">" +
                              "    <input type='hidden' name='authenticity_token' value='" + "<%= form_authenticity_token() %>" + "'/>" +
@@ -259,8 +279,11 @@
 
         <%# COMMENTS %>
 
-        <% @comments.each do |comment| %>
-          <div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;width:<%= 65 - (2 * (comment.level.to_i + 1)) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
+        <% @comments.each_with_index do |comment,index| %>
+          <% if index == 0 %>
+            <div class="comment_divider"> </div>
+          <% end %>
+          <div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;width:<%= 100 - (2 * (comment.level.to_i + 1)) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
               <%= link_to(image_tag(gravatar_url_for(comment.user,:thumb), :width => 30, :height => 30, :class => 'comment_owner_pic', :alt => ''),comment.user, :class => 'comment_owner') %>
               <div class="comment_actions">
                   <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user,:tiny), :width => 15, :height => 15, :alt => '')} #{comment.user.login}')", :class => "comment_reply_link" %>
@@ -284,6 +307,7 @@
                   <%= time_ago_in_words(comment.created_at) %> ago
               </div>
           </div>
+          <div class="comment_divider"> </div>        
         <% end %>
         <div id="last_comment_div_for_insert_before" style="height:50px;"> </div>
       <% end %>
@@ -292,4 +316,4 @@
 </div>
 
 <div style="clear:left;"> </div>
-<br/><br/>
+<div style="clear:right;"> </div>

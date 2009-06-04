@@ -1,32 +1,32 @@
 div#logo {
   font-size: 60px;
-  margin: 15px 0px -15px 0px;
   color: #aaa;
   font-weight: bold;
-}
-div#pullout {
+  width: 150px;
+  text-align: center;
+  margin-left: 30px;
+  margin-top: 0px;
   float: left;
-  width: 350px;
 }
 div#topic_space {
-  height: 750px;
-  width: 350px;
+  width: 300px;
   border: solid 1px #C9D7F1;
   background-color: #FFF;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 10px;
+  margin: 5px auto 20px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
 }
 
 div#main_space {
-  margin-left: 350px;
   text-align: center;
+  margin-right: 320px;
+  background-color: #ffffff;
 }
 
 textarea#topic_content {
   border: solid 1px #999;
   height: 40px;
-  width: 400px;
+  width: 80%;
 }
 
 input#t {
@@ -49,14 +49,13 @@ label {
 
 div#main_deal {
   margin-top: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
+  margin-left: 250px;
+  width: 100%;
   text-align: left;
 }
 
 div#creation_prompt {
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .topic_in_list {
@@ -94,7 +93,7 @@ div#creation_prompt {
 }
 
 div#existing_suggestions {
-  width: 70%;
+  width: 95%;
   margin-left: 20px;
   text-align: left;
 }
@@ -108,7 +107,7 @@ div#topic_area {
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
+  width: 85%;
 }
 
 div#the_topic {
@@ -116,11 +115,11 @@ div#the_topic {
   text-align: left;
   min-height: 80px;
   height: auto;
-  width: 65%;
+  width: 100%;
   position: relative;
 }
 .back_default {
-  background-color: #f4f4ff;
+  background-color: #ffffff;
 }
 .back_moused_over {
   background-color: #e0e0ff;
@@ -130,8 +129,8 @@ div#the_topic {
   text-align: left;
   min-height: 40px;
   height: auto;
-  margin-top: 10px;
-  width: 63%;
+  margin-top: 5px;
+  width: 98%;
   overflow: hidden;
 }
 
@@ -219,14 +218,13 @@ div#the_topic {
 }
 
 div#topic_reply {
-  width: 63%;
+  width: 98%;
   text-align: left;
-  margin-top: 10px;
-  margin-left: 2%;
+  margin: 10px 0px 10px 2%;
 }
 
 .comment_reply {
-  width: 63%;
+  width: 98%;
   text-align: left;
   margin-top: 10px;
 }
@@ -279,7 +277,7 @@ div#topic_reply {
 }
 
 div#search_inner {
-  width: 60%;
+  width: 50%;
 }
 
 div#mid_content {
@@ -308,6 +306,8 @@ div#mid_content {
 
 .topic_info_line {
   margin-left: 35px;
+  height: 14px;
+  overflow: hidden;
 }
 .prompt_login {
   margin:20px;
@@ -367,8 +367,9 @@ span#invite_submit_progress{
   margin-left: 20px;
 }
 div#right_panel {
-  float: right;
-  width: 25%;
+  width: 280px;
+  margin: 15px auto;
+  padding: 8px 6px;
   background-color: #f0f0f5;
   text-align: left;
   -moz-border-radius: 10px;
@@ -394,21 +395,36 @@ div#right_panel {
   height:38px;
 }
 div#about_box {
-  position: absolute;
-  width: 25%;
-  right: 0px;
-  top: -138px;
-  margin-top: 30px;
-  text-align: left;
+  text-align: center;
+  width: 280px;
+  margin: 58px auto 15px;
+  padding: 8px 6px;
   background-color: #def;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
 div#about_text{
-  margin: 10px 15px;
   color: #149;
   font-size: 13px;
   overflow: hidden;
-  height: 50px;
   z-index: -1;
+}
+
+div#right_column {
+  width: 320px;
+  float: right;
+  background-color: #c0c0c8;
+}
+
+.comment_divider {
+  width: 98%;
+  border-top: 1px dashed #D2DADA;
+  padding: 0px 5px;
+  margin-left: 2%;
+  margin-top: 5px;
+}
+
+div#first_medium_heading {
+  -moz-border-radius: 10px 10px 0px 0px;
+  -webkit-border-radius: 10px 10px 0px 0px;
 }

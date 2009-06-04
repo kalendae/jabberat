@@ -3,19 +3,19 @@ class UserMailer < ActionMailer::Base
     setup_email(user)
     @subject    += 'Please activate your new account'
   
-    @body[:url]  = "http://jabberAt.com/activate/#{user.activation_code}"
+    @body[:url]  = "http://www.tawk.com/activate/#{user.activation_code}"
   
   end
   
   def activation(user)
     setup_email(user)
     @subject    += 'Your account has been activated!'
-    @body[:url]  = "http://jabberAt.com/"
+    @body[:url]  = "http://www.tawk.com/"
   end
 
   def invite(current_user, emails, content)
     @recipients  = "#{emails}"
-    @from        = "hello@jabberAt.com"
+    @from        = "hello@tawk.com"
     @subject     = "#{current_user.login} has invited you to a tawk conversation"
     @sent_on     = Time.now
     @body[:content] = content
@@ -24,7 +24,7 @@ class UserMailer < ActionMailer::Base
 
   def notify(user,users,topic,comment)
     @bcc = "#{users.collect{|u| u.email}.join(",")}"
-    @from = "hello@jabberAt.com"
+    @from = "hello@tawk.com"
     @subject = "#{user.login} replied to a Tawk conversation you were part of"
     @sent_on = Time.now
     @topic = topic

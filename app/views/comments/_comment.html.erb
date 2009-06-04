@@ -1,5 +1,6 @@
 <% comment = @comment %>
-<div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;width:<%= 65 - (2 * (comment.level.to_i + 1)) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
+<div class="comment_divider"> </div>
+<div class="comment <% if comment.level.to_i == 0 %>root<% end %> back_default" style="margin-left:<%= 2 * (comment.level.to_i + 1) %>%;width:<%= 100 - (2 * (comment.level.to_i + 1)) %>%;" id="comment_<%= comment.id %>"  onmouseover="this.removeClassName('back_default');this.addClassName('back_moused_over');$('comment_edit_link_<%= comment.id %>').show();" onmouseout="this.removeClassName('back_moused_over');this.addClassName('back_default');$('comment_edit_link_<%= comment.id %>').hide();">
     <%= link_to(image_tag(gravatar_url_for(comment.user,:thumb), :width => 30, :height => 30, :class => 'comment_owner_pic'),comment.user, :class => 'comment_owner') %>
     <div class="comment_actions">
         <%= link_to_function "Reply", "reply_to(#{comment.id},#{comment.level.to_i},'Your reply to #{image_tag(gravatar_url_for(comment.user,:tiny), :width => 15, :height => 15)} #{comment.user.login}')", :class => "comment_reply_link" %>
