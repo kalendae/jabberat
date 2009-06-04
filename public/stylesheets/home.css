@@ -2,10 +2,8 @@ div#logo {
   font-size: 60px;
   color: #aaa;
   font-weight: bold;
-  width: 150px;
   text-align: center;
-  margin-left: 30px;
-  margin-top: 0px;
+  margin-top: 30px;
   float: left;
 }
 div#topic_space {
@@ -17,10 +15,15 @@ div#topic_space {
   -webkit-border-radius: 12px;
 }
 
-div#main_space {
+div#main_panel {
+  width: 85%;
+  margin: 0px auto;
+}
+td#main_space {
   text-align: center;
-  margin-right: 320px;
   background-color: #ffffff;
+  vertical-align: top;
+  width: 100%;  
 }
 
 textarea#topic_content {
@@ -48,9 +51,7 @@ label {
 }
 
 div#main_deal {
-  margin-top: 40px;
-  margin-left: 250px;
-  width: 100%;
+  margin-left: 200px;
   text-align: left;
 }
 
@@ -164,7 +165,7 @@ div#the_topic {
 }
 
 .comment_content {
-  margin-left: 50px;
+  margin-left: 38px;
   margin-right: 50px;
   font-family: verdana, sans-serif;
   font-size: 12px;
@@ -202,7 +203,7 @@ div#the_topic {
 .comment_time {
   font-size: 11px;
   color: #bbb;
-  margin-left: 50px;
+  margin-left: 38px;
 }
 
 .topic_owner_name {
@@ -277,7 +278,7 @@ div#topic_reply {
 }
 
 div#search_inner {
-  width: 50%;
+  width: 100%;
 }
 
 div#mid_content {
@@ -368,7 +369,7 @@ span#invite_submit_progress{
 }
 div#right_panel {
   width: 280px;
-  margin: 15px auto;
+  margin: 15px;
   padding: 8px 6px;
   background-color: #f0f0f5;
   text-align: left;
@@ -410,10 +411,10 @@ div#about_text{
   z-index: -1;
 }
 
-div#right_column {
+td#right_column {
   width: 320px;
-  float: right;
   background-color: #c0c0c8;
+  vertical-align: top;
 }
 
 .comment_divider {
@@ -428,3 +429,4 @@ div#first_medium_heading {
   -moz-border-radius: 10px 10px 0px 0px;
   -webkit-border-radius: 10px 10px 0px 0px;
 }
+
