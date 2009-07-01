@@ -77,11 +77,13 @@ div#creation_prompt {
 }
 
 .topic_content_in_list {
+  width: 233px;
   margin-left: 35px;
   font-size: 12px;
   font-family: arial, helvetica, sans-serif;
   height: 15px;
   white-space: nowrap;
+  cursor: pointer;
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   overflow: hidden;
