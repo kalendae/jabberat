@@ -22,6 +22,15 @@ class UserMailer < ActionMailer::Base
     @content = content
   end
 
+  def weekly(user, topics)
+    @recipients  = user.email
+    @from        = "hello@tawk.com"
+    @subject     = "Hot topics this week on Tawk"
+    @sent_on     = Time.now
+    @topics = topics
+    @user = user
+  end
+
   def notify(user,users,topic,comment)
     @bcc = "#{users.collect{|u| u.email}.join(",")}"
     @from = "hello@tawk.com"

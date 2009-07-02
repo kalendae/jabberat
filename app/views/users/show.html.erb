@@ -133,7 +133,7 @@
                             <div id="avatar_link">
                                 <% form_for current_user, :html => { :multipart => true } do |f| %>
                                   <%= f.hidden_field :authenticity_token, :value => form_authenticity_token %>
-                                  <%= f.file_field :photo, :value => 'Browse' %>
+                                  <%= f.file_field :photo, :value => 'Browse', :style => 'width:190px;', :size => '20' %>
                                   <%= submit_tag 'Go' %>
                                 <% end %>
                             </div>
@@ -159,6 +159,22 @@
                   <div class="user_info">
                       Comments: <%= @user.comments.count %>
                   </div>
+                  <% if current_user and current_user == @user %>
+                    <br/>
+                    <div class="user_info">
+                        <input id="subscribe_checkbox" type="checkbox" onclick="toggleSubscribe();"/> Weekly Updates
+                    </div>
+                    <script type="text/javascript">
+                        $('subscribe_checkbox').checked = <%= @user.subscribe == true %>;
+                        function toggleSubscribe() {
+                          window.location = '/users/toggle_subscribe/<%= @user.id %>';
+                        }
+                    </script>
+                  <% else %>
+                    <div class="user_info">
+                      Weekly updates: <%= @user.subscribe ? 'Yes' : 'No' %>
+                    </div>
+                  <% end %>
               </div>
             </td>
             <td>

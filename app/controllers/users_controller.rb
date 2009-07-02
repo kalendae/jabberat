@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :login_required, :only => [:update_avatar_url, :follow, :unfollow]
+  before_filter :login_required, :only => [:update_avatar_url, :follow, :unfollow, :toggle_subscribe]
 
   def index
     @users = User.find_all_by_deleted_at(nil)
@@ -26,6 +26,20 @@ class UsersController < ApplicationController
     flash[:notice] = "You have stopped following #{@user.login}"
     respond_to do |format|
       format.html {redirect_to(@user)}  
+    end
+  end
+
+  def toggle_subscribe
+    if current_user.subscribe
+      flash[:notice] = "You have unscribed to the weekly update."
+      current_user.subscribe = false
+    else
+      flash[:notice] = 'You have subscribed to the weekly update.'
+      current_user.subscribe = true
+    end
+    current_user.save!
+    respond_to do |format|
+      format.html {redirect_to(current_user)}
     end
   end
 

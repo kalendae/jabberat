@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090510224442) do
+ActiveRecord::Schema.define(:version => 20090702005918) do
 
   create_table "comments", :force => true do |t|
     t.string   "content",    :limit => 512
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20090510224442) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
+    t.boolean  "subscribe"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
