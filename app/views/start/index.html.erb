@@ -145,8 +145,8 @@
               <div id="invite_form_div" style="display:none;">
                   <% form_remote_tag(:url => {:controller => :start, :action => :email_invites, :id => @topic.id}) do  %>
                     <div class="invite_email_description">
-                        <strong>Enter emails in a comma delimited list </strong><br/>
-                        example:  bob@somewhere.com, lindsay@anotherplace.org, chad@nowhere.com<br/>
+                        <strong>Enter emails and users in a comma delimited list </strong><br/>
+                        example:  bob@somewhere.com, @milener, @kalendae, lindsay@anotherplace.org, chad@nowhere.com<br/>
                         Note that we do not keep the emails and only use them this one time to send an invitation.
                     </div>
                     <%= text_area_tag :emails, nil, :class => "invite_email_text_area" %>

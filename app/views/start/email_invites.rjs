@@ -2,6 +2,6 @@ page['invite_submit_progress'].hide
 page['invite_form_div'].hide
 page.replace_html 'ajax_notifier', flash[:notice]
 page['ajax_notifier'].show
-page.delay(5) do
+page.delay(60) do
   page['ajax_notifier'].fade
 end

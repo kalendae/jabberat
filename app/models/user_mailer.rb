@@ -14,7 +14,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def invite(current_user, emails, content)
-    @recipients  = "#{emails}"
+    @bcc  = "#{emails}"
     @from        = "hello@tawk.com"
     @subject     = "#{current_user.login} has invited you to a tawk conversation"
     @sent_on     = Time.now

@@ -1,6 +1,7 @@
 class StartController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
+  EMAIL_VALIDATION_RE = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/i
 
   before_filter :login_required, :only => [:email_invites]
   
@@ -50,11 +51,45 @@ class StartController < ApplicationController
 
   def email_invites
     @topic = Topic.find params[:id]
-    @emails = params[:emails]
+    @to_field = params[:emails]
+    @emails = []
+    @entries = []
+    @broken_entries= []
+    @to_field.strip.split(',').each do |entry|
+      entry.strip!
+      if entry.starts_with? '@'
+        to_user = User.find_by_login(entry[1..-1])
+        if to_user.blank?
+          @broken_entries << [entry, "no such user"]
+        else
+          to_email = to_user.email
+          if to_email =~ EMAIL_VALIDATION_RE
+            @emails << to_email
+            @entries << entry
+          else
+            @broken_entries << [entry, "user does not have a valid email on file"]
+          end
+        end
+      elsif entry =~ EMAIL_VALIDATION_RE
+        @emails << entry
+        @entries << entry
+      else
+        @broken_entries << [entry, "not a valid email address"]
+      end
+    end
     @emailContent = params[:content]
-    UserMailer.deliver_invite(current_user,@emails,@emailContent)
+    @emailContent += "\r\n\r\nthis message was sent by the user #{current_user.login} on Tawk.com (#{url_for(:controller => :users, :action => :show, :id => current_user, :only_path => false)})"
+    UserMailer.deliver_invite(current_user,@emails.join(","),@emailContent) if @emails.size > 0
     respond_to do |format|
-      flash[:notice] = 'Invite email sent.'
+      flash[:notice] = @to_field.blank? ? 'No one to send invitation to.' : ''
+      flash[:notice] += "Invites successfully emailed to #{@entries.join(",")}. <br/>" if @entries.size > 0
+      if @broken_entries.size > 0
+        flash[:notice] += "<br/>Could not send email to the following:<br/>"
+        @broken_entries.each do |be|
+          flash[:notice] += "  #{be.first} : #{be.last} <br/>"
+        end
+      end
+      flash[:notice] += "<br/><a href=\"#\" onclick=\"$('ajax_notifier').hide();return false;\">OK</a>"
       format.js
     end
   end

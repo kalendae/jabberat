@@ -2,10 +2,7 @@
 
   <% @topics.each do |topic| %>
     <%= topic.user.login.titleize %> said: "<%= topic.content%>"
-
-       View the conversation and <%= topic.comments.count %> replies at:
-       http://www.tawk.com<%= url_for(:controller => :start, :action => :index, :id => topic) %>
-
+    Join this conversation at: http://www.tawk.com<%= url_for(:controller => :start, :action => :index, :id => topic) %>
 
   <% end %>
 
@@ -13,6 +10,6 @@ Enjoy!
 
 - Tawk.com
 
-ps. to stop receiving this weekly update, simply uncheck the option at
+to stop receiving this weekly update, simply uncheck the option at
 http://www.tawk.com<%= url_for(:controller => :users, :action => :show, :id => @user) %>
 
