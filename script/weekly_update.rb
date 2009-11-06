@@ -23,7 +23,7 @@ log "[#{Time.now.strftime('%m/%d/%Y %H:%M:%S')}] starting weekly update process"
 
 begin
   # find top 5 topics to send TODO: we can make this more personalized later for each user and use this as default only
-  topics = Topic.find(:all, :joins=>[:comments], :conditions=>['topics.created_at > ?',(Time.now - 1.week)],
+  topics = Topic.find(:all, :joins=>[:comments], :conditions=>['topics.updated_at > ?',(Time.now - 1.week)],
            :order => 'count(comments.id) desc', :limit=>5, :group => 'topics.id')
   if topics.blank?
     log_error "[#{Time.now.strftime('%m/%d/%Y %H:%M:%S')}] No hot topics found for this week}"

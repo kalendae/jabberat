@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
                   :owner => "60x60#",
                   :large => "100x100#",
                   :full => "200x200#"
-                  }
+                  },
+          :whiny => true
   
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
