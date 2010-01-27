@@ -78,7 +78,7 @@ class StartController < ApplicationController
       end
     end
     @emailContent = params[:content]
-    @emailContent += "\r\n\r\nthis message was sent by the user #{current_user.login} on Tawk.com (#{url_for(:controller => :users, :action => :show, :id => current_user, :only_path => false)})"
+    @emailContent += "\r\n\r\nthis message was sent by the user #{current_user.login} on JabberAt.com (#{url_for(:controller => :users, :action => :show, :id => current_user, :only_path => false)})"
     UserMailer.deliver_invite(current_user,@emails.join(","),@emailContent) if @emails.size > 0
     respond_to do |format|
       flash[:notice] = @to_field.blank? ? 'No one to send invitation to.' : ''

@@ -1,15 +1,15 @@
-<%=h @user.login.titleize %>, here are the top conversations on Tawk for this week:
+<%=h @user.login.titleize %>, here are the top conversations on JabberAt for this week:
 
   <% @topics.each do |topic| %>
     <%= topic.user.login.titleize %> said: "<%= topic.content%>"
-    Join this conversation at: http://www.tawk.com<%= url_for(:controller => :start, :action => :index, :id => topic) %>
+    Join this conversation at: http://www.jabberat.com<%= url_for(:controller => :start, :action => :index, :id => topic) %>
 
   <% end %>
 
 Enjoy!
 
-- Tawk.com
+- JabberAt.com
 
 to stop receiving this weekly update, simply uncheck the option at
-http://www.tawk.com<%= url_for(:controller => :users, :action => :show, :id => @user) %>
+http://www.jabberat.com<%= url_for(:controller => :users, :action => :show, :id => @user) %>
 
